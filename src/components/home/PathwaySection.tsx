@@ -33,6 +33,7 @@ export function PathwaySection() {
           viewport={{ once: true }}
           className="max-w-xl mb-12"
         >
+          <p className="label-institutional mb-3">SECTION-02 · PATHWAY · v1.0</p>
           <h2 className="mb-4">The Pathway</h2>
           <p className="text-muted-foreground">
             Three levels. A deliberately demanding progression.
@@ -86,7 +87,7 @@ export function PathwaySection() {
           <div className="flex flex-wrap gap-x-12 gap-y-4 font-mono text-sm text-muted-foreground">
             <p>Minimum expected duration: <span className="text-foreground">2–2.5 years</span></p>
             <p>Expected completion rate: <span className="text-foreground">10–15%</span></p>
-            <p>Purpose: <span className="text-foreground">a strong, discriminating competence signal</span></p>
+            <p>Purpose: <span className="text-foreground">a strong, discriminating competence standard.</span></p>
           </div>
 
           <Button asChild variant="outline" className="mt-8">

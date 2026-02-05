@@ -31,7 +31,7 @@ export function HeroSection() {
               
               {/* Subcopy */}
               <p className="text-lg text-muted-foreground leading-relaxed max-w-xl mb-10">
-                CASM is awarded through rigorous proctored examinations and sustained by public standards, ethical governance, and verifiable credential status. Built to distinguish clinical competence in complex preventive and integrative care.
+              CASM is awarded through proctored examinations and sustained by public standards, ethical governance, and verifiable registry status. Designed to set a clear competence standard for complex preventive and integrative care.
               </p>
               
               {/* CTAs */}
@@ -43,7 +43,7 @@ export function HeroSection() {
                 </Button>
                 <Button asChild variant="outline" size="lg">
                   <Link to="/verify" className="no-underline">
-                    Verify a Credential
+                  Open the Registry
                   </Link>
                 </Button>
               </div>

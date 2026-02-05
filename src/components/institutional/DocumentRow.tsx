@@ -5,34 +5,48 @@ interface DocumentRowProps {
   id: string;
   title: string;
   version: string;
-  status: "Active" | "Draft" | "Archived";
+  status: "Active" | "Lapsed" | "Revoked" | "Draft" | "Archived";
+  effective?: string;
   href?: string;
 }
 
-export function DocumentRow({ id, title, version, status, href = "#" }: DocumentRowProps) {
-  const statusClass = status === "Active" 
-    ? "text-success" 
-    : status === "Draft" 
-      ? "text-warning" 
-      : "text-muted-foreground";
-
+export function DocumentRow({ id, title, version, status, effective, href = "#" }: DocumentRowProps) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      className="document-row group"
+      className="grid grid-cols-[auto_1fr_auto_auto_auto] md:grid-cols-[120px_1fr_60px_100px_100px_120px] gap-2 md:gap-4 items-center py-3 border-b border-border hover:bg-muted/30 transition-colors group"
     >
       <span className="font-mono text-xs text-muted-foreground">{id}</span>
-      <span className="font-medium">{title}</span>
-      <span className="font-mono text-xs text-muted-foreground">{version}</span>
-      <span className={`font-mono text-xs ${statusClass}`}>{status}</span>
-      <Link 
+      <Link
         to={href}
-        className="font-mono text-xs text-primary hover:underline"
+        className="font-medium text-sm no-underline group-hover:underline group-hover:underline-offset-4 truncate"
       >
-        View
+        {title}
       </Link>
+      <span className="font-mono text-xs text-muted-foreground">{version}</span>
+      {effective && (
+        <span className="font-mono text-xs text-muted-foreground hidden md:block">{effective}</span>
+      )}
+      <span className={`status-badge text-center ${status === "Active" ? "status-badge-active" : ""}`}>
+        {status.toUpperCase()}
+      </span>
+      <div className="flex gap-2 justify-end font-mono text-xs">
+        <Link
+          to={href}
+          className="text-muted-foreground hover:text-foreground no-underline hover:underline hover:underline-offset-4 transition-colors"
+        >
+          View
+        </Link>
+        <span className="text-border hidden md:inline">|</span>
+        <Link
+          to={`${href}?format=pdf`}
+          className="text-muted-foreground hover:text-foreground no-underline hover:underline hover:underline-offset-4 transition-colors hidden md:inline"
+        >
+          PDF
+        </Link>
+      </div>
     </motion.div>
   );
 }

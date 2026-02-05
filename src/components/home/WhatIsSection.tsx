@@ -1,32 +1,33 @@
 import { motion } from "framer-motion";
-import { Check, X } from "lucide-react";
 
 const whatIs = [
-  "A credential awarded by examination",
+  "Awarded by proctored examination",
   "A public competence standard",
-  "A governance-led institution with enforceable ethics",
+  "Governance-led, with enforceable ethics",
   "A verified designation with registry status",
 ];
 
 const whatIsNot = [
-  "Not a course",
-  "Not coaching",
-  "Not commercial biohacking",
-  "Not an affiliation to supplements, labs, or therapies",
+  "A course or prep program",
+  "Coaching",
+  "Commercial biohacking",
+  "Affiliation to supplements, labs, or therapies",
 ];
 
 export function WhatIsSection() {
   return (
     <section className="section border-t border-border">
       <div className="container-regular">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:divide-x md:divide-border">
           {/* What it is */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            className="md:pr-12"
           >
-            <h3 className="text-2xl mb-6">What CASM is</h3>
+            <p className="label-institutional mb-3">INCLUDED</p>
+            <h3 className="text-2xl mb-8">What CASM is</h3>
             <ul className="space-y-4">
               {whatIs.map((item, index) => (
                 <motion.li
@@ -35,10 +36,10 @@ export function WhatIsSection() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="flex items-start gap-3"
+                  className="flex items-start gap-3 text-muted-foreground"
                 >
-                  <Check className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
-                  <span className="text-muted-foreground">{item}</span>
+                  <span className="text-foreground select-none">–</span>
+                  <span>{item}</span>
                 </motion.li>
               ))}
             </ul>
@@ -50,8 +51,10 @@ export function WhatIsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
+            className="md:pl-12"
           >
-            <h3 className="text-2xl mb-6">What CASM is not</h3>
+            <p className="label-institutional mb-3">EXCLUDED</p>
+            <h3 className="text-2xl mb-8">What CASM is not</h3>
             <ul className="space-y-4">
               {whatIsNot.map((item, index) => (
                 <motion.li
@@ -60,10 +63,10 @@ export function WhatIsSection() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 + index * 0.1 }}
-                  className="flex items-start gap-3"
+                  className="flex items-start gap-3 text-muted-foreground"
                 >
-                  <X className="w-5 h-5 text-destructive mt-0.5 flex-shrink-0" />
-                  <span className="text-muted-foreground">{item}</span>
+                  <span className="text-foreground select-none">–</span>
+                  <span>{item}</span>
                 </motion.li>
               ))}
             </ul>

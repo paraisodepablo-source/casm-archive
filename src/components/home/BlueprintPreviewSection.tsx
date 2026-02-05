@@ -81,6 +81,7 @@ export function BlueprintPreviewSection() {
           viewport={{ once: true }}
           className="mb-12"
         >
+          <p className="label-institutional mb-3">SECTION-03 · BLUEPRINTS · v1.0</p>
           <h2 className="mb-4">Blueprint Preview</h2>
         </motion.div>
 
@@ -106,6 +107,13 @@ export function BlueprintPreviewSection() {
             </button>
           ))}
         </div>
+        
+        {/* Level context line */}
+        <p className="label-institutional mb-6">
+          {activeTab === "Level I" && "Level I · Mechanistic mastery"}
+          {activeTab === "Level II" && "Level II · Clinical application"}
+          {activeTab === "Level III" && "Level III · Integration & strategy"}
+        </p>
 
         {/* Content */}
         <AnimatePresence mode="wait">

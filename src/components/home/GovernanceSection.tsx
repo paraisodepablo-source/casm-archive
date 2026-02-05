@@ -13,6 +13,7 @@ export function GovernanceSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
+          <p className="label-institutional mb-3">GOVERNANCE STRUCTURE · v1.0</p>
           <h2 className="mb-4">Governance at a glance</h2>
         </motion.div>
 

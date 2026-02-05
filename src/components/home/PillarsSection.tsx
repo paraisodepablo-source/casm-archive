@@ -5,17 +5,17 @@ const pillars = [
   {
     number: 1,
     title: "Examination-based",
-    description: "Public blueprints. Psychometrically designed exams. Formal standard setting.",
+    description: "Public blueprints. Proctored exams. Formal standard setting.",
   },
   {
     number: 2,
     title: "Institutional standards",
-    description: "Ethics, conflict-of-interest controls, and enforceable disciplinary process.",
+    description: "Ethics, conflict-of-interest controls, and disciplinary enforcement.",
   },
   {
     number: 3,
     title: "Verifiable signal",
-    description: "A public registry with active, lapsed, and revoked status. No ambiguity.",
+    description: "Public registry with active, lapsed, and revoked status.",
   },
 ];
 

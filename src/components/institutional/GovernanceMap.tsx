@@ -61,8 +61,8 @@ export function GovernanceMap() {
         transition={{ delay: 0.4 }}
         className="text-center mt-8"
       >
-        <div className="inline-block border-2 border-primary px-6 py-3 bg-card">
-          <span className="font-serif text-lg text-primary">Public Registry</span>
+        <div className="inline-block border border-border px-6 py-3 bg-card">
+          <span className="font-serif text-lg">Public Registry</span>
         </div>
       </motion.div>
     </div>

@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { DocumentRow } from "@/components/institutional/DocumentRow";
 
 const documents = [
-  { id: "CASM-DOC-001", title: "Candidate Handbook", version: "v1.0", status: "Active" as const },
-  { id: "CASM-DOC-002", title: "Exam Blueprints", version: "v1.0", status: "Active" as const },
-  { id: "CASM-DOC-003", title: "Code of Ethics", version: "v1.0", status: "Active" as const },
-  { id: "CASM-DOC-004", title: "Conflict of Interest Policy", version: "v1.0", status: "Active" as const },
-  { id: "CASM-DOC-005", title: "Disciplinary Process", version: "v1.0", status: "Active" as const },
+  { id: "CASM-DOC-001", title: "Candidate Handbook", version: "v1.0", status: "Active" as const, effective: "2026-02-01" },
+  { id: "CASM-DOC-002", title: "Exam Blueprints", version: "v1.0", status: "Active" as const, effective: "2026-02-01" },
+  { id: "CASM-DOC-003", title: "Code of Ethics", version: "v1.0", status: "Active" as const, effective: "2026-02-01" },
+  { id: "CASM-DOC-004", title: "Conflict of Interest Policy", version: "v1.0", status: "Active" as const, effective: "2026-02-01" },
+  { id: "CASM-DOC-005", title: "Disciplinary Process", version: "v1.0", status: "Active" as const, effective: "2026-02-01" },
 ];
 
 export function DocumentsSection() {
@@ -21,7 +21,11 @@ export function DocumentsSection() {
           viewport={{ once: true }}
           className="mb-8"
         >
+          <p className="label-institutional mb-3">DOCUMENT INDEX · CASM-DOC-INDEX · v1.0</p>
           <h2 className="mb-4">Official documents</h2>
+          <p className="text-muted-foreground max-w-xl">
+            Versioned policies, blueprints, and governance documents.
+          </p>
         </motion.div>
 
         <div className="border-t border-border">
@@ -32,6 +36,7 @@ export function DocumentsSection() {
               title={doc.title}
               version={doc.version}
               status={doc.status}
+              effective={doc.effective}
               href={`/documents/${doc.id.toLowerCase()}`}
             />
           ))}

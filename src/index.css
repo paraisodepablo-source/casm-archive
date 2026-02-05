@@ -40,14 +40,8 @@
     --accent-foreground: 40 20% 97%;
     
     /* Status colors - Institutional, not flashy */
-    --destructive: 0 50% 45%;
-    --destructive-foreground: 40 20% 97%;
-    
-    --success: 160 40% 35%;
-    --success-foreground: 40 20% 97%;
-    
-    --warning: 35 60% 50%;
-    --warning-foreground: 220 15% 12%;
+  --destructive: 220 10% 35%;
+  --destructive-foreground: 40 20% 97%;
     
     /* Borders - Hairline, very subtle */
     --border: 220 10% 88%;
@@ -246,16 +240,37 @@
   }
   
   /* Status badges */
-  .status-active {
-    color: hsl(var(--success));
+  .status-badge {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid hsl(var(--border));
+    color: hsl(var(--muted-foreground));
   }
   
-  .status-lapsed {
-    color: hsl(var(--warning));
+  .status-badge-active {
+    border-color: hsl(var(--foreground));
+    color: hsl(var(--foreground));
   }
   
-  .status-revoked {
-    color: hsl(var(--destructive));
+  /* Section version label */
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+  }
+  
+  /* Institutional label - unified style */
+  .label-institutional {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
   }
   
   /* Table institutional style */

@@ -13,22 +13,22 @@ const documents = [
 
 export function DocumentsSection() {
   return (
-    <section className="section border-t border-border">
+    <section className="section border-t border-foreground/10">
       <div className="container-wide">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-8"
+          className="mb-[24px]"
         >
-          <p className="label-institutional mb-3">DOCUMENT INDEX · CASM-DOC-INDEX · v1.0</p>
-          <h2 className="mb-4">Official documents</h2>
+          <p className="label-institutional mb-[18px]">DOCUMENT INDEX · CASM-DOC-INDEX · v1.0</p>
+          <h2 className="mb-[18px]">Official documents</h2>
           <p className="text-muted-foreground max-w-xl">
-            Versioned policies, blueprints, and governance documents.
+            Versioned policies, blueprints, and governance documents. Publicly referenced and change-controlled.
           </p>
         </motion.div>
 
-        <div className="border-t border-border">
+        <div className="border-t border-foreground/10">
           {documents.map((doc) => (
             <DocumentRow
               key={doc.id}
@@ -46,7 +46,7 @@ export function DocumentsSection() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="mt-8"
+          className="mt-[32px]"
         >
           <Button asChild variant="outline">
             <Link to="/documents" className="no-underline">

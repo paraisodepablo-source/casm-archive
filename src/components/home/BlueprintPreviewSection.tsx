@@ -6,6 +6,7 @@ import { BlueprintBar } from "@/components/institutional/BlueprintBar";
 
 const blueprintData = {
   "Level I": {
+    context: "Mechanistic mastery",
     domains: [
       { label: "Cellular bioenergetics", percentage: 12, range: "10-14%" },
       { label: "Endocrinology", percentage: 10, range: "8-12%" },
@@ -21,13 +22,14 @@ const blueprintData = {
       { label: "Evaluation & labs", percentage: 4, range: "2-6%" },
     ],
     focus: [
-      "causal mechanisms across systems",
-      "metabolic pathways and integration",
-      "signal transduction fundamentals",
-      "evidence hierarchy application",
+      "Causal mechanisms across systems",
+      "Metabolic pathway integration",
+      "Signal transduction fundamentals",
+      "Evidence hierarchy application",
     ],
   },
   "Level II": {
+    context: "Clinical application",
     domains: [
       { label: "Clinical decision-making", percentage: 15, range: "12-18%" },
       { label: "Multi-system integration", percentage: 12, range: "10-14%" },
@@ -41,13 +43,14 @@ const blueprintData = {
       { label: "Monitoring & adjustment", percentage: 7, range: "5-9%" },
     ],
     focus: [
-      "prioritization under complexity",
-      "interpreting contradictory data",
-      "therapeutic trade-offs & troubleshooting",
-      "uncertainty communication & ethics",
+      "Prioritization under complexity",
+      "Interpreting contradictory data",
+      "Therapeutic trade-offs & troubleshooting",
+      "Uncertainty communication & ethics",
     ],
   },
   "Level III": {
+    context: "Integration & strategy",
     domains: [
       { label: "Complex case management", percentage: 20, range: "18-22%" },
       { label: "Long-horizon planning", percentage: 15, range: "12-18%" },
@@ -59,10 +62,10 @@ const blueprintData = {
       { label: "Resource optimization", percentage: 9, range: "7-11%" },
     ],
     focus: [
-      "multi-condition complexity management",
+      "Multi-condition complexity management",
       "10-30 year healthspan strategy",
-      "stakeholder coordination",
-      "ethical boundary navigation",
+      "Stakeholder coordination",
+      "Ethical boundary navigation",
     ],
   },
 };
@@ -73,35 +76,38 @@ export function BlueprintPreviewSection() {
   const [activeTab, setActiveTab] = useState<LevelKey>("Level I");
 
   return (
-    <section className="section border-t border-border bg-card">
+    <section className="section border-t border-foreground/10 bg-card">
       <div className="container-wide">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-12"
+          className="mb-[24px]"
         >
-          <p className="label-institutional mb-3">SECTION-03 · BLUEPRINTS · v1.0</p>
-          <h2 className="mb-4">Blueprint Preview</h2>
+          <p className="label-institutional mb-[18px]">SECTION-03 · BLUEPRINTS · v1.0</p>
+          <h2 className="mb-[18px]">Blueprint Preview</h2>
+          <p className="text-muted-foreground max-w-xl">
+            Indicative weighting by domain. Percent ranges represent blueprint allocation.
+          </p>
         </motion.div>
 
         {/* Tabs */}
-        <div className="flex gap-1 mb-8 border-b border-border">
+        <div className="flex gap-1 mb-6 border-b border-foreground/10">
           {(Object.keys(blueprintData) as LevelKey[]).map((level) => (
             <button
               key={level}
               onClick={() => setActiveTab(level)}
-              className={`px-6 py-3 font-mono text-sm transition-colors relative ${
+              className={`px-6 py-3 font-mono text-xs tracking-wide transition-colors relative ${
                 activeTab === level
                   ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              {level}
+              {level.toUpperCase()}
               {activeTab === level && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-foreground"
                 />
               )}
             </button>
@@ -109,10 +115,8 @@ export function BlueprintPreviewSection() {
         </div>
         
         {/* Level context line */}
-        <p className="label-institutional mb-6">
-          {activeTab === "Level I" && "Level I · Mechanistic mastery"}
-          {activeTab === "Level II" && "Level II · Clinical application"}
-          {activeTab === "Level III" && "Level III · Integration & strategy"}
+        <p className="label-institutional mb-8">
+          {activeTab} · {blueprintData[activeTab].context}
         </p>
 
         {/* Content */}
@@ -126,7 +130,7 @@ export function BlueprintPreviewSection() {
             className="grid grid-cols-1 lg:grid-cols-12 gap-12"
           >
             {/* Bars */}
-            <div className="lg:col-span-8">
+            <div className="lg:col-span-8" role="list" aria-label="Domain weightings">
               {blueprintData[activeTab].domains.map((domain, index) => (
                 <motion.div
                   key={domain.label}
@@ -145,8 +149,8 @@ export function BlueprintPreviewSection() {
 
             {/* Focus areas */}
             <div className="lg:col-span-4">
-              <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-4">
-                Focus areas
+              <p className="label-institutional mb-4">
+                FOCUS AREAS
               </p>
               <ul className="space-y-3">
                 {blueprintData[activeTab].focus.map((item, index) => (
@@ -157,7 +161,7 @@ export function BlueprintPreviewSection() {
                     transition={{ delay: 0.1 + index * 0.05 }}
                     className="flex items-start gap-3 text-sm text-muted-foreground"
                   >
-                    <span className="text-primary mt-1">•</span>
+                    <span className="text-foreground/40 mt-0.5 text-xs">•</span>
                     {item}
                   </motion.li>
                 ))}
@@ -166,7 +170,7 @@ export function BlueprintPreviewSection() {
           </motion.div>
         </AnimatePresence>
 
-        <Button asChild variant="outline" className="mt-10">
+        <Button asChild variant="outline" className="mt-[32px]">
           <Link to="/curriculum" className="no-underline">
             Curriculum & Blueprints
           </Link>

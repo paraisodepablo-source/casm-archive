@@ -8,20 +8,31 @@
   CASM INSTITUTE DESIGN SYSTEM
   Style: Editorial Institution v1.0
   Aesthetic: Sober, precise, academic with spectacular composition
+  
+  GRID SYSTEM:
+  - Editorial container: max-width 1120px
+  - Wide container: max-width 1280px
+  - Margins: 80px (≥1440), 56px (1024-1439), 40px (768-1023), 20px (<768)
+  
+  SPACING:
+  - Section gap: 120px
+  - Title to subtitle: 18px
+  - Subtitle to body: 24px
+  - Body to CTA: 32px
 */
 
 @layer base {
   :root {
     /* Core palette - warm institutional */
     --background: 40 20% 97%;
-    --foreground: 220 15% 12%;
+    --foreground: 0 0% 8%; /* #141414 */
     
     /* Surface variations */
     --card: 40 15% 98%;
-    --card-foreground: 220 15% 12%;
+    --card-foreground: 0 0% 8%;
     
     --popover: 40 20% 99%;
-    --popover-foreground: 220 15% 12%;
+    --popover-foreground: 0 0% 8%;
     
     /* Primary - Ink accent (petrol blue) */
     --primary: 200 45% 22%;
@@ -29,40 +40,46 @@
     
     /* Secondary - Warm gray */
     --secondary: 40 10% 94%;
-    --secondary-foreground: 220 12% 35%;
+    --secondary-foreground: 216 6% 37%; /* #5A5F66 */
     
     /* Muted - For metadata and subtle elements */
     --muted: 40 8% 92%;
-    --muted-foreground: 220 10% 48%;
+    --muted-foreground: 216 6% 37%; /* #5A5F66 - not lighter */
     
     /* Accent - Same as primary for consistency */
     --accent: 200 45% 22%;
     --accent-foreground: 40 20% 97%;
     
     /* Status colors - Institutional, not flashy */
-  --destructive: 220 10% 35%;
-  --destructive-foreground: 40 20% 97%;
+    --destructive: 220 10% 35%;
+    --destructive-foreground: 40 20% 97%;
     
-    /* Borders - Hairline, very subtle */
-    --border: 220 10% 88%;
-    --input: 220 10% 88%;
+    /* Borders - Hairline with specific opacity */
+    --border: 0 0% 8% / 0.12; /* rgba(20,20,20,0.12) */
+    --border-subtle: 0 0% 8% / 0.10;
+    --border-strong: 0 0% 8% / 0.18;
+    --input: 0 0% 8% / 0.12;
     --ring: 200 45% 22%;
     
-    --radius: 0.25rem;
+    --radius: 0.125rem;
     
     /* Typography scale */
     --font-serif: 'Playfair Display', Georgia, serif;
     --font-sans: 'Inter', -apple-system, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
     
-    /* Content widths */
+    /* Content widths - Elite institutional */
     --width-narrow: 720px;
-    --width-regular: 1040px;
+    --width-regular: 1120px;
     --width-wide: 1280px;
     
-    /* Spacing rhythm */
-    --section-gap: 8rem;
-    --component-gap: 3rem;
+    /* Spacing rhythm - Precise */
+    --section-gap: 120px;
+    --section-gap-sm: 72px;
+    --title-subtitle-gap: 18px;
+    --subtitle-body-gap: 24px;
+    --body-cta-gap: 32px;
+    --component-gap: 48px;
   }
 }
 

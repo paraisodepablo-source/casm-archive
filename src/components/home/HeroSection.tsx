@@ -19,31 +19,31 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              {/* Eyebrow */}
-              <p className="eyebrow mb-6">
+              {/* Eyebrow - consistent pattern */}
+              <p className="eyebrow mb-[18px]">
                 THE CASM INSTITUTE · v1.0 · GLOBAL STANDARD
               </p>
               
-              {/* Headline */}
-              <h1 className="mb-8 max-w-2xl">
+              {/* Headline - precise line breaks */}
+              <h1 className="mb-[24px] max-w-2xl">
                 A global, examination-based credential in advanced systems medicine and healthspan.
               </h1>
               
-              {/* Subcopy */}
-              <p className="text-lg text-muted-foreground leading-relaxed max-w-xl mb-10">
-              CASM is awarded through proctored examinations and sustained by public standards, ethical governance, and verifiable registry status. Designed to set a clear competence standard for complex preventive and integrative care.
+              {/* Subcopy - institutional language */}
+              <p className="text-lg text-muted-foreground leading-relaxed max-w-xl mb-[32px]">
+                CASM is awarded through proctored examinations and governed by published standards, enforceable ethics, and public registry status. Designed to formalize clinical competence in complex preventive and integrative care.
               </p>
               
-              {/* CTAs */}
-              <div className="flex flex-wrap gap-4">
-                <Button asChild size="lg" className="border border-foreground bg-foreground text-background hover:bg-foreground/90">
+              {/* CTAs - consistent heights, 16-18px gap */}
+              <div className="flex flex-wrap items-center gap-4">
+                <Button asChild size="lg" className="border border-foreground bg-foreground text-background hover:bg-foreground/90 h-11">
                   <Link to="/credential" className="no-underline">
                     Explore the Credential
                   </Link>
                 </Button>
-                <Button asChild variant="outline" size="lg">
+                <Button asChild variant="outline" size="lg" className="h-11">
                   <Link to="/verify" className="no-underline">
-                  Open the Registry
+                    Open the Registry
                   </Link>
                 </Button>
               </div>

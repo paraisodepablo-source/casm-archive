@@ -9,7 +9,10 @@ export function SectionNumber({ number, className = "" }: SectionNumberProps) {
     : number;
 
   return (
-    <span className={`section-number ${className}`}>
+    <span 
+      className={`font-mono text-sm font-medium tracking-[0.16em] text-muted-foreground ${className}`}
+      aria-hidden="true"
+    >
       {formattedNumber}
     </span>
   );

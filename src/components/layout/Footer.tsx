@@ -16,7 +16,7 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="border-t border-border mt-section">
+    <footer className="border-t border-foreground/10 mt-section">
       <div className="container-wide py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand */}
@@ -29,8 +29,8 @@ export function Footer() {
 
           {/* Institutional links */}
           <div>
-            <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-4">
-              Institutional
+            <p className="label-institutional mb-4">
+              INSTITUTIONAL
             </p>
             <ul className="space-y-2">
               {footerLinks.institutional.map((link) => (
@@ -48,8 +48,8 @@ export function Footer() {
 
           {/* Policies links */}
           <div>
-            <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-4">
-              Policies
+            <p className="label-institutional mb-4">
+              POLICIES
             </p>
             <ul className="space-y-2">
               {footerLinks.policies.map((link) => (
@@ -67,12 +67,12 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-16 pt-8 border-t border-border">
+        <div className="mt-16 pt-8 border-t border-foreground/10">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <p className="font-mono text-xs text-muted-foreground">
+            <p className="font-mono text-xs text-muted-foreground tracking-wide">
               © {new Date().getFullYear()} The CASM Institute. All rights reserved.
             </p>
-            <p className="font-mono text-xs text-muted-foreground">
+            <p className="font-mono text-xs text-muted-foreground tracking-wide">
               v1.0 · Global Standard
             </p>
           </div>

@@ -20,32 +20,32 @@ export function Header() {
   const [lang, setLang] = useState<"EN" | "ES">("EN");
 
   return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-foreground/10">
       {/* Top bar */}
       <div className="container-wide">
         <div className="flex items-center justify-between h-12 text-sm">
-          <Link to="/" className="font-serif text-lg font-medium no-underline hover:text-primary transition-colors">
+          <Link to="/" className="font-serif text-base font-medium no-underline hover:text-primary transition-colors">
             The CASM Institute
           </Link>
           
-          <div className="flex items-center gap-4 font-mono text-xs">
+          <div className="flex items-center font-mono text-xs tracking-wide">
             <button
               onClick={() => setLang(lang === "EN" ? "ES" : "EN")}
-              className="no-underline hover:text-primary transition-colors"
+              className="no-underline hover:text-primary transition-colors px-3"
             >
               {lang === "EN" ? "EN" : "ES"} / {lang === "EN" ? "ES" : "EN"}
             </button>
-            <span className="text-border">|</span>
-            <Link to="/verify" className="no-underline hover:text-primary transition-colors">
+            <span className="text-foreground/20 mx-1.5">|</span>
+            <Link to="/verify" className="no-underline hover:text-primary transition-colors px-3">
               Registry
             </Link>
-            <Link to="/documents" className="no-underline hover:text-primary transition-colors">
+            <Link to="/documents" className="no-underline hover:text-primary transition-colors px-3">
               Documents
             </Link>
-            <span className="text-border">|</span>
+            <span className="text-foreground/20 mx-1.5">|</span>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="no-underline hover:text-primary transition-colors font-mono uppercase tracking-wider"
+              className="no-underline hover:text-primary transition-colors font-mono uppercase tracking-[0.16em] px-3"
             >
               {isMenuOpen ? "Close" : "Index"}
             </button>
@@ -61,7 +61,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 right-0 bg-background border-b border-border shadow-sm"
+            className="absolute top-full left-0 right-0 bg-background border-b border-foreground/10 shadow-sm"
           >
             <div className="container-wide py-8">
               <nav className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-1">
@@ -72,7 +72,7 @@ export function Header() {
                     onClick={() => setIsMenuOpen(false)}
                     className="group flex items-baseline gap-4 py-2 no-underline hover:text-primary transition-colors"
                   >
-                    <span className="font-mono text-xs text-muted-foreground w-6">{item.number}</span>
+                    <span className="font-mono text-xs text-muted-foreground w-6 tracking-[0.16em]">{item.number}</span>
                     <span className="text-foreground group-hover:underline group-hover:underline-offset-4">
                       {item.label}
                     </span>

@@ -5,25 +5,25 @@ const pillars = [
   {
     number: 1,
     title: "Examination-based",
-    description: "Public blueprints. Proctored exams. Formal standard setting.",
+    description: "Published blueprints. Proctored examinations. Psychometrically designed item banks. A formal competence standard.",
   },
   {
     number: 2,
     title: "Institutional standards",
-    description: "Ethics, conflict-of-interest controls, and disciplinary enforcement.",
+    description: "Governance, conflict-of-interest controls, and enforceable ethics. Disciplinary process with public policies.",
   },
   {
     number: 3,
     title: "Verifiable signal",
-    description: "Public registry with active, lapsed, and revoked status.",
+    description: "A public registry with active, lapsed, and revoked status. Verifiable record. No ambiguity.",
   },
 ];
 
 export function PillarsSection() {
   return (
-    <section className="section-sm border-t border-border">
+    <section className="py-[72px] md:py-[84px] border-t border-foreground/10">
       <div className="container-regular">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
           {pillars.map((pillar, index) => (
             <motion.div
               key={pillar.number}
@@ -33,7 +33,7 @@ export function PillarsSection() {
               transition={{ delay: index * 0.1 }}
             >
               <SectionNumber number={pillar.number} className="block mb-4" />
-              <h3 className="text-xl mb-3">{pillar.title}</h3>
+              <h3 className="text-xl mb-[18px]">{pillar.title}</h3>
               <p className="text-muted-foreground leading-relaxed">
                 {pillar.description}
               </p>

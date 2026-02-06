@@ -72,13 +72,16 @@ export default {
       },
       maxWidth: {
         narrow: "720px",
-        regular: "1040px",
+        regular: "1120px",
         wide: "1280px",
       },
       spacing: {
-        section: "8rem",
-        "section-sm": "4rem",
-        component: "3rem",
+        section: "120px",
+        "section-sm": "72px",
+        component: "48px",
+        "title-subtitle": "18px",
+        "subtitle-body": "24px",
+        "body-cta": "32px",
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -8,20 +8,31 @@
   CASM INSTITUTE DESIGN SYSTEM
   Style: Editorial Institution v1.0
   Aesthetic: Sober, precise, academic with spectacular composition
+  
+  GRID SYSTEM:
+  - Editorial container: max-width 1120px
+  - Wide container: max-width 1280px
+  - Margins: 80px (≥1440), 56px (1024-1439), 40px (768-1023), 20px (<768)
+  
+  SPACING:
+  - Section gap: 120px
+  - Title to subtitle: 18px
+  - Subtitle to body: 24px
+  - Body to CTA: 32px
 */
 
 @layer base {
   :root {
     /* Core palette - warm institutional */
     --background: 40 20% 97%;
-    --foreground: 220 15% 12%;
+    --foreground: 0 0% 8%; /* #141414 */
     
     /* Surface variations */
     --card: 40 15% 98%;
-    --card-foreground: 220 15% 12%;
+    --card-foreground: 0 0% 8%;
     
     --popover: 40 20% 99%;
-    --popover-foreground: 220 15% 12%;
+    --popover-foreground: 0 0% 8%;
     
     /* Primary - Ink accent (petrol blue) */
     --primary: 200 45% 22%;
@@ -29,40 +40,46 @@
     
     /* Secondary - Warm gray */
     --secondary: 40 10% 94%;
-    --secondary-foreground: 220 12% 35%;
+    --secondary-foreground: 216 6% 37%; /* #5A5F66 */
     
     /* Muted - For metadata and subtle elements */
     --muted: 40 8% 92%;
-    --muted-foreground: 220 10% 48%;
+    --muted-foreground: 216 6% 37%; /* #5A5F66 - not lighter */
     
     /* Accent - Same as primary for consistency */
     --accent: 200 45% 22%;
     --accent-foreground: 40 20% 97%;
     
     /* Status colors - Institutional, not flashy */
-  --destructive: 220 10% 35%;
-  --destructive-foreground: 40 20% 97%;
+    --destructive: 220 10% 35%;
+    --destructive-foreground: 40 20% 97%;
     
-    /* Borders - Hairline, very subtle */
-    --border: 220 10% 88%;
-    --input: 220 10% 88%;
+    /* Borders - Hairline with specific opacity */
+    --border: 0 0% 8% / 0.12; /* rgba(20,20,20,0.12) */
+    --border-subtle: 0 0% 8% / 0.10;
+    --border-strong: 0 0% 8% / 0.18;
+    --input: 0 0% 8% / 0.12;
     --ring: 200 45% 22%;
     
-    --radius: 0.25rem;
+    --radius: 0.125rem;
     
     /* Typography scale */
     --font-serif: 'Playfair Display', Georgia, serif;
     --font-sans: 'Inter', -apple-system, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
     
-    /* Content widths */
+    /* Content widths - Elite institutional */
     --width-narrow: 720px;
-    --width-regular: 1040px;
+    --width-regular: 1120px;
     --width-wide: 1280px;
     
-    /* Spacing rhythm */
-    --section-gap: 8rem;
-    --component-gap: 3rem;
+    /* Spacing rhythm - Precise */
+    --section-gap: 120px;
+    --section-gap-sm: 72px;
+    --title-subtitle-gap: 18px;
+    --subtitle-body-gap: 24px;
+    --body-cta-gap: 32px;
+    --component-gap: 48px;
   }
 }
 
@@ -73,46 +90,53 @@
   
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* Offset for sticky header */
   }
   
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-sans);
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: 17px;
+    line-height: 1.7;
     letter-spacing: -0.01em;
   }
   
-  /* Serif headings - Editorial authority */
+  /* Serif headings - Editorial authority with precise scale */
   h1, h2, h3 {
     font-family: var(--font-serif);
     font-weight: 500;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
+    letter-spacing: -0.01em;
   }
   
+  /* H1: 72-84px desktop, 44-52px mobile, line-height 0.98 */
   h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-size: clamp(2.75rem, 6vw, 5.25rem);
+    line-height: 0.98;
+    letter-spacing: -0.01em;
   }
   
+  /* H2: 44-56px, line-height 1.05 */
   h2 {
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-size: clamp(2.75rem, 4vw, 3.5rem);
+    line-height: 1.05;
   }
   
+  /* H3: 22-26px, line-height 1.2 */
   h3 {
-    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-size: clamp(1.375rem, 2vw, 1.625rem);
+    line-height: 1.2;
   }
   
-  /* Sans body - Clinical, modern */
+  /* Sans body - Clinical, modern, 17-18px */
   p, li, td, th {
     font-family: var(--font-sans);
   }
   
-  /* Monospace metadata */
+  /* Monospace metadata - 12px, uppercase, tracking 0.14-0.18em */
   .font-mono, code, .metadata {
     font-family: var(--font-mono);
-    font-size: 0.8125rem;
-    letter-spacing: 0.02em;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
   }
   
   /* Institutional links - Underlined like papers */
@@ -120,56 +144,91 @@
     text-decoration: underline;
     text-underline-offset: 3px;
     text-decoration-thickness: 1px;
-    transition: text-decoration-color 0.2s ease;
+    transition: text-decoration-color 0.2s ease, text-underline-offset 0.2s ease;
   }
   
   a:hover {
     text-decoration-color: hsl(var(--primary));
+    text-underline-offset: 4px;
+  }
+  
+  /* Focus states - accessible and consistent */
+  :focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
   }
 }
 
 @layer components {
-  /* Content width containers */
+  /* Content width containers with responsive margins */
+  /* Margins: 80px (≥1440), 56px (1024-1439), 40px (768-1023), 20px (<768) */
   .container-narrow {
     max-width: var(--width-narrow);
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 20px;
+    padding-right: 20px;
   }
   
   .container-regular {
     max-width: var(--width-regular);
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 20px;
+    padding-right: 20px;
   }
   
   .container-wide {
     max-width: var(--width-wide);
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 20px;
+    padding-right: 20px;
   }
   
-  /* Institutional section spacing */
+  @media (min-width: 768px) {
+    .container-narrow,
+    .container-regular,
+    .container-wide {
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .container-narrow,
+    .container-regular,
+    .container-wide {
+      padding-left: 56px;
+      padding-right: 56px;
+    }
+  }
+  
+  @media (min-width: 1440px) {
+    .container-narrow,
+    .container-regular,
+    .container-wide {
+      padding-left: 80px;
+      padding-right: 80px;
+    }
+  }
+  
+  /* Institutional section spacing - 120px between sections */
   .section {
     padding-top: var(--section-gap);
     padding-bottom: var(--section-gap);
   }
   
   .section-sm {
-    padding-top: calc(var(--section-gap) / 2);
-    padding-bottom: calc(var(--section-gap) / 2);
+    padding-top: var(--section-gap-sm);
+    padding-bottom: var(--section-gap-sm);
   }
   
-  /* Eyebrow text - Monospace metadata style */
+  /* Eyebrow text - Monospace metadata style, 12px, tracking 0.16em */
   .eyebrow {
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: hsl(var(--muted-foreground));
   }
@@ -179,10 +238,11 @@
     font-family: var(--font-mono);
     font-size: 0.875rem;
     font-weight: 500;
+    letter-spacing: 0.16em;
     color: hsl(var(--muted-foreground));
   }
   
-  /* Hairline borders */
+  /* Hairline borders with proper opacity */
   .hairline {
     border-width: 1px;
     border-color: hsl(var(--border));
@@ -205,8 +265,8 @@
     font-size: clamp(15rem, 25vw, 30rem);
     font-weight: 600;
     color: transparent;
-    -webkit-text-stroke: 1px hsl(220 10% 88%);
-    opacity: 0.4;
+    -webkit-text-stroke: 1px hsl(0 0% 8% / 0.08);
+    opacity: 0.5;
     pointer-events: none;
     user-select: none;
     line-height: 0.8;
@@ -221,33 +281,34 @@
     align-items: center;
     padding: 1rem 0;
     border-bottom: 1px solid hsl(var(--border));
-    transition: background-color 0.15s ease;
+    transition: background-color 0.18s ease;
   }
   
   .document-row:hover {
-    background-color: hsl(var(--muted) / 0.5);
+    background-color: hsl(0 0% 0% / 0.02);
   }
   
   /* Blueprint bar */
   .blueprint-bar {
-    height: 0.5rem;
-    background-color: hsl(var(--primary));
+    height: 6px;
+    background-color: hsl(var(--foreground) / 0.7);
     border-radius: 0;
   }
   
   .blueprint-bar-muted {
-    background-color: hsl(var(--muted-foreground) / 0.3);
+    background-color: hsl(var(--muted-foreground) / 0.2);
   }
   
-  /* Status badges */
+  /* Status badges - stamp style, not button */
   .status-badge {
     font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.08em;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    padding: 0.25rem 0.5rem;
+    padding: 0.25rem 0.625rem;
     border: 1px solid hsl(var(--border));
     color: hsl(var(--muted-foreground));
+    background: transparent;
   }
   
   .status-badge-active {
@@ -258,22 +319,22 @@
   /* Section version label */
   .section-label {
     font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: hsl(var(--muted-foreground));
   }
   
-  /* Institutional label - unified style */
+  /* Institutional label - unified style, 12px, tracking 0.16em */
   .label-institutional {
     font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: hsl(var(--muted-foreground));
   }
   
-  /* Table institutional style */
+  /* Table institutional style - elite */
   .table-institutional {
     width: 100%;
     border-collapse: collapse;
@@ -284,7 +345,7 @@
     font-size: 0.75rem;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.16em;
     color: hsl(var(--muted-foreground));
     text-align: left;
     padding: 0.75rem 1rem;
@@ -292,13 +353,17 @@
   }
   
   .table-institutional td {
-    padding: 1rem;
+    padding: 1.25rem 1rem;
     border-bottom: 1px solid hsl(var(--border));
-    vertical-align: top;
+    vertical-align: middle;
+  }
+  
+  .table-institutional tr {
+    transition: background-color 0.18s ease;
   }
   
   .table-institutional tr:hover td {
-    background-color: hsl(var(--muted) / 0.4);
+    background-color: hsl(0 0% 0% / 0.02);
   }
   
   /* Policy callout */
@@ -308,7 +373,7 @@
     margin: 2rem 0;
   }
   
-  /* Animated underline for links */
+  /* Animated underline for links - 0.2s animation */
   .link-animated {
     position: relative;
     text-decoration: none;
@@ -322,11 +387,18 @@
     width: 0;
     height: 1px;
     background-color: hsl(var(--primary));
-    transition: width 0.3s ease;
+    transition: width 0.2s ease;
   }
   
   .link-animated:hover::after {
     width: 100%;
+  }
+  
+  /* Vertical separator - institutional */
+  .separator-vertical {
+    width: 1px;
+    background-color: hsl(var(--foreground) / 0.15);
+    align-self: stretch;
   }
 }
 

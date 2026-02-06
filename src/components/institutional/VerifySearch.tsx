@@ -47,32 +47,35 @@ export function VerifySearch() {
   };
 
   return (
-    <div className="bg-card border border-border p-6 space-y-6">
+    <div className="bg-card border border-foreground/10 p-7 space-y-6">
       <div>
         <p className="label-institutional mb-2">PUBLIC REGISTRY</p>
         <h3 className="text-lg font-sans font-medium">Verify a credential</h3>
+        <p className="text-sm text-muted-foreground mt-2">
+          Search by name or Credential ID. Registry status is the authoritative record.
+        </p>
       </div>
       
       <form onSubmit={handleSearch} className="space-y-4">
-        <div className="space-y-1">
+        <div className="space-y-1.5">
           <Input
             type="text"
             placeholder="Name or Credential ID"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-background border-border rounded-none"
+            className="bg-background border-foreground/12 rounded-none h-11 placeholder:text-muted-foreground/70"
           />
-          <p className="font-mono text-[10px] text-muted-foreground tracking-wide">
+          <p className="font-mono text-[11px] text-muted-foreground tracking-wide">
             Credential ID format: CASM-000123
           </p>
         </div>
         
         <div>
           <Select value={status} onValueChange={setStatus}>
-            <SelectTrigger className="bg-background border-border rounded-none">
+            <SelectTrigger className="bg-background border-foreground/12 rounded-none h-11">
               <SelectValue placeholder="Any status" />
             </SelectTrigger>
-            <SelectContent className="bg-popover border-border rounded-none">
+            <SelectContent className="bg-popover border-foreground/12 rounded-none">
               <SelectItem value="any">Any status</SelectItem>
               <SelectItem value="active">Active</SelectItem>
               <SelectItem value="lapsed">Lapsed</SelectItem>
@@ -82,14 +85,14 @@ export function VerifySearch() {
         </div>
         
         <div className="flex justify-end">
-          <Button type="submit" variant="outline" size="sm" className="font-mono text-xs">
+          <Button type="submit" variant="outline" size="sm" className="font-mono text-xs h-9">
             Search
           </Button>
         </div>
       </form>
       
       {hasSearched && searchResult === "not-found" && (
-        <div className="pt-4 border-t border-border">
+        <div className="pt-4 border-t border-foreground/10">
           <p className="text-sm text-muted-foreground">
             No results found. Verify spelling or search by Credential ID.
           </p>
@@ -97,12 +100,12 @@ export function VerifySearch() {
       )}
       
       {hasSearched && searchResult && searchResult !== "not-found" && (
-        <div className="pt-4 border-t border-border space-y-3">
-          <p className="font-serif text-lg">{searchResult.fullName}</p>
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-between">
+        <div className="pt-4 border-t border-foreground/10 space-y-4">
+          <p className="font-serif text-xl">{searchResult.fullName}</p>
+          <div className="space-y-3 text-sm">
+            <div className="flex justify-between items-baseline">
               <span className="text-muted-foreground">Credential ID</span>
-              <span className="font-mono">{searchResult.credentialId}</span>
+              <span className="font-mono text-xs tracking-wide">{searchResult.credentialId}</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-muted-foreground">Status</span>
@@ -110,28 +113,28 @@ export function VerifySearch() {
                 {searchResult.status}
               </span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Level</span>
+            <div className="flex justify-between items-baseline">
+              <span className="text-muted-foreground">Highest level</span>
               <span>{searchResult.level}</span>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between items-baseline">
               <span className="text-muted-foreground">Awarded</span>
-              <span className="font-mono text-xs">{searchResult.awardedDate}</span>
+              <span className="font-mono text-xs tracking-wide">{searchResult.awardedDate}</span>
             </div>
             {searchResult.validThrough && (
-              <div className="flex justify-between">
+              <div className="flex justify-between items-baseline">
                 <span className="text-muted-foreground">Valid through</span>
-                <span className="font-mono text-xs">{searchResult.validThrough}</span>
+                <span className="font-mono text-xs tracking-wide">{searchResult.validThrough}</span>
               </div>
             )}
           </div>
-          <p className="font-mono text-[9px] text-muted-foreground pt-2">
+          <p className="font-mono text-[10px] text-muted-foreground pt-2 tracking-wide">
             This registry reflects credential standing as of the timestamp shown.
           </p>
         </div>
       )}
       
-      <p className="font-mono text-[10px] text-muted-foreground tracking-wide pt-2 border-t border-border">
+      <p className="font-mono text-[11px] text-muted-foreground tracking-wide pt-2 border-t border-foreground/10">
         Registry status is the authoritative source.
       </p>
     </div>

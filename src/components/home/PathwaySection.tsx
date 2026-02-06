@@ -19,22 +19,28 @@ const levels = [
     level: "III",
     title: "Complex integration & strategy",
     studyTime: "~300 hours",
-    exam: "structured cases + essays + ethics · ~5 hours",
+    exam: "Structured cases + essays + ethics · ~5 hours",
   },
+];
+
+const stats = [
+  { label: "MINIMUM DURATION", value: "2–2.5 years" },
+  { label: "EXPECTED COMPLETION", value: "10–15%" },
+  { label: "PURPOSE", value: "A strong, discriminating competence standard." },
 ];
 
 export function PathwaySection() {
   return (
-    <section className="section border-t border-border">
+    <section className="section border-t border-foreground/10">
       <div className="container-wide">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-xl mb-12"
+          className="max-w-xl mb-[24px]"
         >
-          <p className="label-institutional mb-3">SECTION-02 · PATHWAY · v1.0</p>
-          <h2 className="mb-4">The Pathway</h2>
+          <p className="label-institutional mb-[18px]">SECTION-02 · PATHWAY · v1.0</p>
+          <h2 className="mb-[18px]">The Pathway</h2>
           <p className="text-muted-foreground">
             Three levels. A deliberately demanding progression.
           </p>
@@ -51,10 +57,10 @@ export function PathwaySection() {
           <table className="table-institutional">
             <thead>
               <tr>
-                <th className="w-24">Level</th>
+                <th className="w-32">Level</th>
                 <th>Focus</th>
                 <th className="w-40">Study Time</th>
-                <th className="w-72">Exam Format</th>
+                <th className="w-80">Exam Format</th>
               </tr>
             </thead>
             <tbody>
@@ -65,34 +71,38 @@ export function PathwaySection() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 + index * 0.05 }}
+                  className="h-[72px]"
                 >
-                  <td className="font-serif text-xl">Level {level.level}</td>
+                  <td className="font-serif text-2xl">Level {level.level}</td>
                   <td className="font-medium">{level.title}</td>
-                  <td className="font-mono text-sm text-muted-foreground">{level.studyTime}</td>
-                  <td className="font-mono text-sm text-muted-foreground">{level.exam}</td>
+                  <td className="font-mono text-xs text-muted-foreground tracking-wide">{level.studyTime}</td>
+                  <td className="font-mono text-xs text-muted-foreground tracking-wide">{level.exam}</td>
                 </motion.tr>
               ))}
             </tbody>
           </table>
         </motion.div>
 
-        {/* Stats */}
+        {/* Stats band - institutional stamp style */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="mt-8 pt-8 border-t border-border"
+          className="mt-12 pt-8 border-t border-foreground/10"
         >
-          <div className="flex flex-wrap gap-x-12 gap-y-4 font-mono text-sm text-muted-foreground">
-            <p>Minimum expected duration: <span className="text-foreground">2–2.5 years</span></p>
-            <p>Expected completion rate: <span className="text-foreground">10–15%</span></p>
-            <p>Purpose: <span className="text-foreground">a strong, discriminating competence standard.</span></p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {stats.map((stat, index) => (
+              <div key={index} className="space-y-2">
+                <p className="label-institutional">{stat.label}</p>
+                <p className="text-foreground font-medium">{stat.value}</p>
+              </div>
+            ))}
           </div>
 
-          <Button asChild variant="outline" className="mt-8">
+          <Button asChild variant="outline" className="mt-[32px]">
             <Link to="/curriculum" className="no-underline">
-              View Blueprints
+              View exam blueprints
             </Link>
           </Button>
         </motion.div>

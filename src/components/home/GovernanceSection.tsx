@@ -5,16 +5,16 @@ import { GovernanceMap } from "@/components/institutional/GovernanceMap";
 
 export function GovernanceSection() {
   return (
-    <section className="section border-t border-border bg-card">
+    <section className="section border-t border-foreground/10 bg-card">
       <div className="container-regular">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-[24px]"
         >
-          <p className="label-institutional mb-3">GOVERNANCE STRUCTURE · v1.0</p>
-          <h2 className="mb-4">Governance at a glance</h2>
+          <p className="label-institutional mb-[18px]">GOVERNANCE STRUCTURE · v1.0</p>
+          <h2>Governance at a glance</h2>
         </motion.div>
 
         <GovernanceMap />
@@ -24,7 +24,7 @@ export function GovernanceSection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
-          className="text-center mt-12"
+          className="text-center mt-[32px]"
         >
           <Button asChild variant="outline">
             <Link to="/governance" className="no-underline">

@@ -7,32 +7,26 @@
 /* 
   CASM INSTITUTE DESIGN SYSTEM
   Style: Editorial Institution v1.0
-  Aesthetic: Sober, precise, academic with spectacular composition
   
-  GRID SYSTEM:
-  - Editorial container: max-width 1120px
-  - Wide container: max-width 1280px
-  - Margins: 80px (≥1440), 56px (1024-1439), 40px (768-1023), 20px (<768)
-  
-  SPACING:
-  - Section gap: 120px
-  - Title to subtitle: 18px
-  - Subtitle to body: 24px
-  - Body to CTA: 32px
+  GRID: 12-column, max-width 1200px
+  MARGINS: 64px desktop, 32px tablet, 20px mobile
+  SPACING: multiples of 8 only
+  MOTION: 160ms fast, 240ms med, ease-out standard
+  COLOR: #111 text, #5A5F66 secondary, off-white bg
 */
 
 @layer base {
   :root {
     /* Core palette - warm institutional */
     --background: 40 20% 97%;
-    --foreground: 0 0% 8%; /* #141414 */
+    --foreground: 0 0% 7%; /* #111 */
     
     /* Surface variations */
     --card: 40 15% 98%;
-    --card-foreground: 0 0% 8%;
+    --card-foreground: 0 0% 7%;
     
     --popover: 40 20% 99%;
-    --popover-foreground: 0 0% 8%;
+    --popover-foreground: 0 0% 7%;
     
     /* Primary - Ink accent (petrol blue) */
     --primary: 200 45% 22%;
@@ -42,44 +36,43 @@
     --secondary: 40 10% 94%;
     --secondary-foreground: 216 6% 37%; /* #5A5F66 */
     
-    /* Muted - For metadata and subtle elements */
+    /* Muted - For metadata */
     --muted: 40 8% 92%;
-    --muted-foreground: 216 6% 37%; /* #5A5F66 - not lighter */
+    --muted-foreground: 216 6% 37%; /* #5A5F66 */
     
-    /* Accent - Same as primary for consistency */
+    /* Accent */
     --accent: 200 45% 22%;
     --accent-foreground: 40 20% 97%;
     
-    /* Status colors - Institutional, not flashy */
+    /* Status - Institutional, monochrome */
     --destructive: 220 10% 35%;
     --destructive-foreground: 40 20% 97%;
     
-    /* Borders - Hairline with specific opacity */
-    --border: 0 0% 8% / 0.12; /* rgba(20,20,20,0.12) */
-    --border-subtle: 0 0% 8% / 0.10;
-    --border-strong: 0 0% 8% / 0.18;
-    --input: 0 0% 8% / 0.12;
+    /* Borders - 1px subtle */
+    --border: 0 0% 7% / 0.12;
+    --border-subtle: 0 0% 7% / 0.08;
+    --border-strong: 0 0% 7% / 0.18;
+    --input: 0 0% 7% / 0.12;
     --ring: 200 45% 22%;
     
-    --radius: 0.125rem;
+    --radius: 0px;
     
-    /* Typography scale */
+    /* Typography */
     --font-serif: 'Playfair Display', Georgia, serif;
     --font-sans: 'Inter', -apple-system, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
     
-    /* Content widths - Elite institutional */
+    /* Content widths */
     --width-narrow: 720px;
-    --width-regular: 1120px;
-    --width-wide: 1280px;
+    --width-regular: 1200px;
+    --width-wide: 1320px;
     
-    /* Spacing rhythm - Precise */
-    --section-gap: 120px;
-    --section-gap-sm: 72px;
-    --title-subtitle-gap: 18px;
-    --subtitle-body-gap: 24px;
-    --body-cta-gap: 32px;
-    --component-gap: 48px;
+    /* Motion tokens */
+    --motion-fast: 160ms;
+    --motion-med: 240ms;
+    --motion-slow: 360ms;
+    --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
   }
 }
 
@@ -90,78 +83,91 @@
   
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px; /* Offset for sticky header */
+    scroll-padding-top: 80px;
   }
   
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-sans);
     font-size: 17px;
-    line-height: 1.7;
+    line-height: 1.6;
     letter-spacing: -0.01em;
+    color: #111;
   }
   
-  /* Serif headings - Editorial authority with precise scale */
+  /* Serif headings - max 2 families, 3 weights */
   h1, h2, h3 {
     font-family: var(--font-serif);
     font-weight: 500;
     letter-spacing: -0.01em;
   }
   
-  /* H1: 72-84px desktop, 44-52px mobile, line-height 0.98 */
+  /* H1: 84-92px desktop, 42-48px mobile */
   h1 {
-    font-size: clamp(2.75rem, 6vw, 5.25rem);
+    font-size: clamp(2.625rem, 6.5vw, 5.5rem);
     line-height: 0.98;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
   }
   
-  /* H2: 44-56px, line-height 1.05 */
+  /* H2: 48-56px */
   h2 {
     font-size: clamp(2.75rem, 4vw, 3.5rem);
     line-height: 1.05;
   }
   
-  /* H3: 22-26px, line-height 1.2 */
+  /* H3: 22-24px */
   h3 {
-    font-size: clamp(1.375rem, 2vw, 1.625rem);
+    font-size: clamp(1.375rem, 1.8vw, 1.5rem);
     line-height: 1.2;
   }
   
-  /* Sans body - Clinical, modern, 17-18px */
+  /* Sans body */
   p, li, td, th {
     font-family: var(--font-sans);
   }
   
-  /* Monospace metadata - 12px, uppercase, tracking 0.14-0.18em */
+  /* Monospace metadata - 12-14px */
   .font-mono, code, .metadata {
     font-family: var(--font-mono);
     font-size: 0.75rem;
     letter-spacing: 0.14em;
   }
   
-  /* Institutional links - Underlined like papers */
+  /* Institutional links - consistent underline */
   a:not(.no-underline) {
     text-decoration: underline;
     text-underline-offset: 3px;
     text-decoration-thickness: 1px;
-    transition: text-decoration-color 0.2s ease, text-underline-offset 0.2s ease;
+    text-decoration-color: currentColor;
+    transition: text-underline-offset var(--motion-fast) var(--ease-standard),
+                text-decoration-color var(--motion-fast) var(--ease-standard),
+                color var(--motion-fast) var(--ease-standard);
   }
   
   a:hover {
-    text-decoration-color: hsl(var(--primary));
     text-underline-offset: 4px;
+    text-decoration-color: hsl(var(--primary));
   }
   
-  /* Focus states - accessible and consistent */
+  /* Focus states - accessible */
   :focus-visible {
     outline: 2px solid hsl(var(--primary));
     outline-offset: 2px;
   }
+  
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer components {
-  /* Content width containers with responsive margins */
-  /* Margins: 80px (≥1440), 56px (1024-1439), 40px (768-1023), 20px (<768) */
+  /* Container system - 64px desktop, 32px tablet, 20px mobile */
   .container-narrow {
     max-width: var(--width-narrow);
     margin-left: auto;
@@ -190,8 +196,8 @@
     .container-narrow,
     .container-regular,
     .container-wide {
-      padding-left: 40px;
-      padding-right: 40px;
+      padding-left: 32px;
+      padding-right: 32px;
     }
   }
   
@@ -199,50 +205,71 @@
     .container-narrow,
     .container-regular,
     .container-wide {
-      padding-left: 56px;
-      padding-right: 56px;
+      padding-left: 64px;
+      padding-right: 64px;
     }
   }
   
-  @media (min-width: 1440px) {
-    .container-narrow,
-    .container-regular,
-    .container-wide {
-      padding-left: 80px;
-      padding-right: 80px;
-    }
-  }
-  
-  /* Institutional section spacing - 120px between sections */
+  /* Section spacing - 80-96px desktop, 64-80px tablet, 48-64px mobile */
   .section {
-    padding-top: var(--section-gap);
-    padding-bottom: var(--section-gap);
+    padding-top: 48px;
+    padding-bottom: 48px;
   }
   
-  .section-sm {
-    padding-top: var(--section-gap-sm);
-    padding-bottom: var(--section-gap-sm);
+  @media (min-width: 768px) {
+    .section {
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
   }
   
-  /* Eyebrow text - Monospace metadata style, 12px, tracking 0.16em */
+  @media (min-width: 1024px) {
+    .section {
+      padding-top: 96px;
+      padding-bottom: 96px;
+    }
+  }
+  
+  /* Eyebrow / overline - 12-14px, tracking 0.18-0.22em */
   .eyebrow {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.16em;
+    font-size: 0.8125rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: hsl(var(--muted-foreground));
+    line-height: 1.4;
   }
   
-  /* Section numbering - Institutional style */
+  /* Label institutional */
+  .label-institutional {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+    line-height: 1.4;
+  }
+  
+  /* Section version label */
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+    line-height: 1.4;
+  }
+  
+  /* Section numbering */
   .section-number {
     font-family: var(--font-mono);
     font-size: 0.875rem;
     font-weight: 500;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.18em;
     color: hsl(var(--muted-foreground));
   }
   
-  /* Hairline borders with proper opacity */
+  /* Hairline borders */
   .hairline {
     border-width: 1px;
     border-color: hsl(var(--border));
@@ -265,7 +292,7 @@
     font-size: clamp(15rem, 25vw, 30rem);
     font-weight: 600;
     color: transparent;
-    -webkit-text-stroke: 1px hsl(0 0% 8% / 0.08);
+    -webkit-text-stroke: 1px hsl(0 0% 7% / 0.04);
     opacity: 0.5;
     pointer-events: none;
     user-select: none;
@@ -273,42 +300,29 @@
     letter-spacing: -0.05em;
   }
   
-  /* Document row component */
-  .document-row {
-    display: grid;
-    grid-template-columns: auto 1fr auto auto auto;
-    gap: 1.5rem;
-    align-items: center;
-    padding: 1rem 0;
-    border-bottom: 1px solid hsl(var(--border));
-    transition: background-color 0.18s ease;
-  }
-  
-  .document-row:hover {
-    background-color: hsl(0 0% 0% / 0.02);
-  }
-  
   /* Blueprint bar */
-  .blueprint-bar {
+  .blueprint-bar-track {
+    height: 6px;
+    background-color: hsl(var(--foreground) / 0.06);
+  }
+  
+  .blueprint-bar-fill {
     height: 6px;
     background-color: hsl(var(--foreground) / 0.7);
-    border-radius: 0;
   }
   
-  .blueprint-bar-muted {
-    background-color: hsl(var(--muted-foreground) / 0.2);
-  }
-  
-  /* Status badges - stamp style, not button */
+  /* Status badges - stamp style */
   .status-badge {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.6875rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    padding: 0.25rem 0.625rem;
+    padding: 0.1875rem 0.5rem;
     border: 1px solid hsl(var(--border));
     color: hsl(var(--muted-foreground));
     background: transparent;
+    display: inline-block;
+    line-height: 1.4;
   }
   
   .status-badge-active {
@@ -316,25 +330,7 @@
     color: hsl(var(--foreground));
   }
   
-  /* Section version label */
-  .section-label {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: hsl(var(--muted-foreground));
-  }
-  
-  /* Institutional label - unified style, 12px, tracking 0.16em */
-  .label-institutional {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: hsl(var(--muted-foreground));
-  }
-  
-  /* Table institutional style - elite */
+  /* Table institutional */
   .table-institutional {
     width: 100%;
     border-collapse: collapse;
@@ -345,11 +341,11 @@
     font-size: 0.75rem;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.18em;
     color: hsl(var(--muted-foreground));
     text-align: left;
     padding: 0.75rem 1rem;
-    border-bottom: 1px solid hsl(var(--border));
+    border-bottom: 1px solid hsl(var(--foreground) / 0.16);
   }
   
   .table-institutional td {
@@ -359,7 +355,7 @@
   }
   
   .table-institutional tr {
-    transition: background-color 0.18s ease;
+    transition: background-color var(--motion-fast) var(--ease-standard);
   }
   
   .table-institutional tr:hover td {
@@ -373,7 +369,7 @@
     margin: 2rem 0;
   }
   
-  /* Animated underline for links - 0.2s animation */
+  /* Animated underline for nav links */
   .link-animated {
     position: relative;
     text-decoration: none;
@@ -387,31 +383,46 @@
     width: 0;
     height: 1px;
     background-color: hsl(var(--primary));
-    transition: width 0.2s ease;
+    transition: width var(--motion-fast) var(--ease-standard);
   }
   
   .link-animated:hover::after {
     width: 100%;
   }
   
-  /* Vertical separator - institutional */
+  /* Vertical separator */
   .separator-vertical {
     width: 1px;
-    background-color: hsl(var(--foreground) / 0.15);
+    background-color: hsl(var(--foreground) / 0.12);
     align-self: stretch;
+  }
+  
+  /* Document row */
+  .document-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 56px 96px 72px 88px;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid hsl(var(--border));
+    transition: background-color var(--motion-fast) var(--ease-standard);
+  }
+  
+  .document-row:hover {
+    background-color: hsl(0 0% 0% / 0.02);
   }
 }
 
 @layer utilities {
-  /* Fade in animation */
+  /* Fade in - respects reduced motion via base rule */
   .fade-in {
-    animation: fadeIn 0.6s ease-out forwards;
+    animation: fadeIn var(--motion-slow) var(--ease-standard) forwards;
   }
   
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(8px);
     }
     to {
       opacity: 1;
@@ -419,15 +430,14 @@
     }
   }
   
-  /* Stagger children animation */
   .stagger-children > * {
     opacity: 0;
-    animation: fadeIn 0.5s ease-out forwards;
+    animation: fadeIn var(--motion-med) var(--ease-standard) forwards;
   }
   
-  .stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
-  .stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
-  .stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
-  .stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
-  .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+  .stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+  .stagger-children > *:nth-child(2) { animation-delay: 60ms; }
+  .stagger-children > *:nth-child(3) { animation-delay: 120ms; }
+  .stagger-children > *:nth-child(4) { animation-delay: 180ms; }
+  .stagger-children > *:nth-child(5) { animation-delay: 240ms; }
 }

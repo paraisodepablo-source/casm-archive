@@ -1,219 +1,108 @@
-import { motion } from "framer-motion";
-
 /**
- * GOVERNANCE MAP - SVG Implementation
+ * GOVERNANCE MAP - SVG Implementation (no animation)
  * 
- * Exact measurements as specified:
- * - Container: 1040px
- * - Center axis: Xc = 520px
- * - Standard box: 240x56, padding 18px, border rgba(20,20,20,0.12)
- * - Row of 4 committees at Y1 = Y0 + 110px
- * - Gap between boxes: 24px
- * - Committee X positions: 4, 268, 532, 796 (centers: 124, 388, 652, 916)
- * - Board: 260x56, centered at Xc
- * - Public Registry: 240x56, centered at Xc, Y2 = Y1 + 120px
- * 
- * Connections:
- * - Stroke: rgba(20,20,20,0.18), width 1, linecap butt
- * - Board → committees: vertical to Ybus, horizontal bus, 4 drops
- * - Board → Public Registry: central vertical with gap at bus crossing
+ * Exact measurements:
+ * - Container: 1040px, Xc = 520px
+ * - Standard box: 240x56, border rgba(20,20,20,0.12)
+ * - Board: 260x56, centered
+ * - Committees at Y=110, gap=24px, positions: 4/268/532/796
+ * - Registry at Y=230, centered
+ * - Bus at Y=88, stroke rgba(20,20,20,0.18), width 1
  */
 
 export function GovernanceMap() {
-  // Dimensions
-  const containerWidth = 1040;
-  const boxHeight = 56;
-  const standardBoxWidth = 240;
-  const boardBoxWidth = 260;
-  const gap = 24;
+  const W = 1040;
+  const boxH = 56;
+  const boardW = 260;
+  const stdW = 240;
   
-  // Y positions
   const boardY = 0;
-  const busY = 88; // Y0 + 110 - 22
-  const committeesY = 110;
-  const registryY = committeesY + 120;
+  const busY = 88;
+  const comY = 110;
+  const regY = 230;
   
-  // X positions for committees (left edge)
-  const committeeX = [4, 268, 532, 796];
-  // X centers for committees
-  const committeeCenters = [124, 388, 652, 916];
+  const cx = [124, 388, 652, 916];
+  const bx = [4, 268, 532, 796];
+  const Xc = 520;
   
-  // Center
-  const centerX = containerWidth / 2;
+  const svgH = regY + boxH + 16;
   
-  // SVG height
-  const svgHeight = registryY + boxHeight + 20;
-  
-  const strokeColor = "rgba(20, 20, 20, 0.18)";
-  const boxBorderColor = "rgba(20, 20, 20, 0.12)";
+  const stroke = "rgba(20,20,20,0.18)";
+  const boxStroke = "rgba(20,20,20,0.12)";
+  const boxFill = "hsl(40,15%,98%)";
   
   const committees = [
     "Examination Committee",
     "Standards & Ethics Committee",
     "Evidence Review Panel",
-    ["Credentialing &", "Disciplinary Council"]
+    ["Credentialing &", "Disciplinary Council"],
   ];
 
   return (
-    <div className="relative py-8">
-      <svg 
-        viewBox={`0 0 ${containerWidth} ${svgHeight}`}
+    <div className="py-8">
+      <svg
+        viewBox={`0 0 ${W} ${svgH}`}
         className="w-full max-w-[1040px] mx-auto"
-        style={{ maxHeight: `${svgHeight}px` }}
-        aria-label="Governance structure diagram showing Board of Directors at top, four committees in middle, and Public Registry at bottom"
+        aria-label="Governance structure: Board of Directors oversees four committees and Public Registry"
       >
-        {/* Board of Directors */}
-        <motion.g
-          initial={{ opacity: 0, y: -10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <rect
-            x={centerX - boardBoxWidth / 2}
-            y={boardY}
-            width={boardBoxWidth}
-            height={boxHeight}
-            fill="hsl(40, 15%, 98%)"
-            stroke={boxBorderColor}
-            strokeWidth="1"
-          />
-          <text
-            x={centerX}
-            y={boardY + boxHeight / 2 + 5}
-            textAnchor="middle"
-            className="font-serif text-lg"
-            fill="currentColor"
-          >
-            Board of Directors
-          </text>
-        </motion.g>
+        {/* Board */}
+        <rect x={Xc - boardW / 2} y={boardY} width={boardW} height={boxH}
+          fill={boxFill} stroke={boxStroke} strokeWidth="1" />
+        <text x={Xc} y={boardY + boxH / 2 + 5} textAnchor="middle"
+          fontFamily="'Playfair Display', serif" fontSize="16" fill="#111">
+          Board of Directors
+        </text>
         
-        {/* Vertical line from Board to bus */}
-        <line
-          x1={centerX}
-          y1={boardY + boxHeight}
-          x2={centerX}
-          y2={busY - 5}
-          stroke={strokeColor}
-          strokeWidth="1"
-          strokeLinecap="butt"
-        />
+        {/* Board → bus */}
+        <line x1={Xc} y1={boardY + boxH} x2={Xc} y2={busY - 5}
+          stroke={stroke} strokeWidth="1" />
         
-        {/* Horizontal bus line */}
-        <line
-          x1={committeeCenters[0]}
-          y1={busY}
-          x2={committeeCenters[3]}
-          y2={busY}
-          stroke={strokeColor}
-          strokeWidth="1"
-          strokeLinecap="butt"
-        />
+        {/* Horizontal bus */}
+        <line x1={cx[0]} y1={busY} x2={cx[3]} y2={busY}
+          stroke={stroke} strokeWidth="1" />
         
-        {/* Vertical drops to committees */}
-        {committeeCenters.map((cx, index) => (
-          <line
-            key={`drop-${index}`}
-            x1={cx}
-            y1={busY}
-            x2={cx}
-            y2={committeesY}
-            stroke={strokeColor}
-            strokeWidth="1"
-            strokeLinecap="butt"
-          />
+        {/* Drops to committees */}
+        {cx.map((x, i) => (
+          <line key={`drop-${i}`} x1={x} y1={busY} x2={x} y2={comY}
+            stroke={stroke} strokeWidth="1" />
         ))}
         
         {/* Committee boxes */}
-        {committees.map((label, index) => (
-          <motion.g
-            key={`committee-${index}`}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
-          >
-            <rect
-              x={committeeX[index]}
-              y={committeesY}
-              width={standardBoxWidth}
-              height={boxHeight}
-              fill="hsl(40, 15%, 98%)"
-              stroke={boxBorderColor}
-              strokeWidth="1"
-            />
+        {committees.map((label, i) => (
+          <g key={`com-${i}`}>
+            <rect x={bx[i]} y={comY} width={stdW} height={boxH}
+              fill={boxFill} stroke={boxStroke} strokeWidth="1" />
             {Array.isArray(label) ? (
               <>
-                <text
-                  x={committeeCenters[index]}
-                  y={committeesY + boxHeight / 2 - 4}
-                  textAnchor="middle"
-                  className="text-sm"
-                  fill="currentColor"
-                >
+                <text x={cx[i]} y={comY + boxH / 2 - 3} textAnchor="middle"
+                  fontFamily="'Inter', sans-serif" fontSize="13" fill="#111" style={{ lineHeight: 1.15 }}>
                   {label[0]}
                 </text>
-                <text
-                  x={committeeCenters[index]}
-                  y={committeesY + boxHeight / 2 + 12}
-                  textAnchor="middle"
-                  className="text-sm"
-                  fill="currentColor"
-                >
+                <text x={cx[i]} y={comY + boxH / 2 + 13} textAnchor="middle"
+                  fontFamily="'Inter', sans-serif" fontSize="13" fill="#111" style={{ lineHeight: 1.15 }}>
                   {label[1]}
                 </text>
               </>
             ) : (
-              <text
-                x={committeeCenters[index]}
-                y={committeesY + boxHeight / 2 + 5}
-                textAnchor="middle"
-                className="text-sm"
-                fill="currentColor"
-              >
+              <text x={cx[i]} y={comY + boxH / 2 + 5} textAnchor="middle"
+                fontFamily="'Inter', sans-serif" fontSize="13" fill="#111">
                 {label}
               </text>
             )}
-          </motion.g>
+          </g>
         ))}
         
-        {/* Central vertical line to Registry with gap at bus */}
-        <line
-          x1={centerX}
-          y1={busY + 5}
-          x2={centerX}
-          y2={registryY}
-          stroke={strokeColor}
-          strokeWidth="1"
-          strokeLinecap="butt"
-        />
+        {/* Board → Registry (central, with gap at bus) */}
+        <line x1={Xc} y1={busY + 5} x2={Xc} y2={regY}
+          stroke={stroke} strokeWidth="1" />
         
         {/* Public Registry */}
-        <motion.g
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-        >
-          <rect
-            x={centerX - standardBoxWidth / 2}
-            y={registryY}
-            width={standardBoxWidth}
-            height={boxHeight}
-            fill="hsl(40, 15%, 98%)"
-            stroke={boxBorderColor}
-            strokeWidth="1"
-          />
-          <text
-            x={centerX}
-            y={registryY + boxHeight / 2 + 5}
-            textAnchor="middle"
-            className="font-serif text-lg"
-            fill="currentColor"
-          >
-            Public Registry
-          </text>
-        </motion.g>
+        <rect x={Xc - stdW / 2} y={regY} width={stdW} height={boxH}
+          fill={boxFill} stroke={boxStroke} strokeWidth="1" />
+        <text x={Xc} y={regY + boxH / 2 + 5} textAnchor="middle"
+          fontFamily="'Playfair Display', serif" fontSize="16" fill="#111">
+          Public Registry
+        </text>
       </svg>
     </div>
   );

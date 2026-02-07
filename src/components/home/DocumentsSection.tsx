@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { DocumentRow } from "@/components/institutional/DocumentRow";
+import { motionMed } from "@/lib/motion";
 
 const documents = [
   { id: "CASM-DOC-001", title: "Candidate Handbook", version: "v1.0", status: "Active" as const, effective: "2026-02-01" },
@@ -13,22 +14,23 @@ const documents = [
 
 export function DocumentsSection() {
   return (
-    <section className="section border-t border-foreground/10">
+    <section className="section border-t border-foreground/8">
       <div className="container-wide">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-[24px]"
+          transition={motionMed}
+          className="mb-8"
         >
-          <p className="label-institutional mb-[18px]">DOCUMENT INDEX · CASM-DOC-INDEX · v1.0</p>
-          <h2 className="mb-[18px]">Official documents</h2>
+          <p className="eyebrow mb-5">DOCUMENT INDEX · CASM-DOC-INDEX · v1.0</p>
+          <h2 className="mb-5">Official documents</h2>
           <p className="text-muted-foreground max-w-xl">
             Versioned policies, blueprints, and governance documents. Publicly referenced and change-controlled.
           </p>
         </motion.div>
 
-        <div className="border-t border-foreground/10">
+        <div className="border-t border-foreground/8">
           {documents.map((doc) => (
             <DocumentRow
               key={doc.id}
@@ -46,7 +48,8 @@ export function DocumentsSection() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="mt-[32px]"
+          transition={{ ...motionMed, delay: 0.08 }}
+          className="mt-8"
         >
           <Button asChild variant="outline">
             <Link to="/documents" className="no-underline">

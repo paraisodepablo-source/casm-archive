@@ -2,18 +2,20 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { GovernanceMap } from "@/components/institutional/GovernanceMap";
+import { motionMed } from "@/lib/motion";
 
 export function GovernanceSection() {
   return (
-    <section className="section border-t border-foreground/10 bg-card">
+    <section className="section border-t border-foreground/8 bg-card">
       <div className="container-regular">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-[24px]"
+          transition={motionMed}
+          className="text-center mb-8"
         >
-          <p className="label-institutional mb-[18px]">GOVERNANCE STRUCTURE · v1.0</p>
+          <p className="eyebrow mb-5">GOVERNANCE STRUCTURE · v1.0</p>
           <h2>Governance at a glance</h2>
         </motion.div>
 
@@ -23,8 +25,8 @@ export function GovernanceSection() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="text-center mt-[32px]"
+          transition={{ ...motionMed, delay: 0.3 }}
+          className="text-center mt-12"
         >
           <Button asChild variant="outline">
             <Link to="/governance" className="no-underline">

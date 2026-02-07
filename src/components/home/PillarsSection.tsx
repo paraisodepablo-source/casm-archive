@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { SectionNumber } from "@/components/institutional/SectionNumber";
+import { motionMed, staggerDelay } from "@/lib/motion";
 
 const pillars = [
   {
@@ -21,19 +22,30 @@ const pillars = [
 
 export function PillarsSection() {
   return (
-    <section className="py-[72px] md:py-[84px] border-t border-foreground/10">
+    <section className="section border-t border-foreground/8">
       <div className="container-regular">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={motionMed}
+          className="mb-12"
+        >
+          <p className="eyebrow mb-5">THE STANDARD</p>
+          <h2>Three pillars of an enforceable credential.</h2>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-10">
           {pillars.map((pillar, index) => (
             <motion.div
               key={pillar.number}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              transition={staggerDelay(index)}
             >
               <SectionNumber number={pillar.number} className="block mb-4" />
-              <h3 className="text-xl mb-[18px]">{pillar.title}</h3>
+              <h3 className="mb-4">{pillar.title}</h3>
               <p className="text-muted-foreground leading-relaxed">
                 {pillar.description}
               </p>

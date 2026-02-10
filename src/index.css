@@ -310,6 +310,17 @@
     height: 6px;
     background-color: hsl(var(--foreground) / 0.7);
   }
+
+  /* Hero blueprint micro-bars */
+  .hero-blueprint-track {
+    height: 6px;
+    background-color: hsl(var(--foreground) / 0.08);
+  }
+
+  .hero-blueprint-fill {
+    height: 6px;
+    background-color: hsl(var(--foreground) / 0.6);
+  }
   
   /* Status badges - stamp style */
   .status-badge {

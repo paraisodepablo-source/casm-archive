@@ -1,125 +1,154 @@
 import { Link } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { CasmMark } from "@/components/institutional/CasmMark";
+import {
+  motion,
+  useMotionTemplate,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { MouseEvent, useMemo, useRef } from "react";
+import { ArrowRightLongIcon } from "@/components/ui/icons/ArrowRightLongIcon";
 
-const registryRows = [
-  {
-    label: "Standards",
-    description: "Published blueprints & competence domains",
-    href: "/documents",
-  },
-  {
-    label: "Ethics",
-    description: "Enforceable code + disciplinary process",
-    href: "/documents",
-  },
-  {
-    label: "Registry",
-    description: "Public status tracking",
-    href: "/verify",
-  },
-];
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+};
 
 export function HeroSection() {
   const shouldReduceMotion = useReducedMotion();
+  const heroRef = useRef<HTMLElement | null>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+
+  const blurProgress = useTransform(scrollYProgress, [0.25, 0.92], [0, 18]);
+  const fadeProgress = useTransform(scrollYProgress, [0.5, 0.95], [1, 0.15]);
+
+  const pointerX = useSpring(0, { stiffness: 40, damping: 22, mass: 0.6 });
+  const pointerY = useSpring(0, { stiffness: 40, damping: 22, mass: 0.6 });
+
+  const lighting = useMotionTemplate`
+    radial-gradient(130% 100% at ${useTransform(pointerX, [-1, 1], [56, 44])}% ${useTransform(pointerY, [-1, 1], [38, 62])}%,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(244, 241, 235, 0.92) 42%,
+      rgba(226, 222, 214, 0.85) 100%)`;
+
+  const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
+    if (shouldReduceMotion) return;
+    const { currentTarget, clientX, clientY } = event;
+    const rect = currentTarget.getBoundingClientRect();
+    const x = ((clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((clientY - rect.top) / rect.height) * 2 - 1;
+
+    pointerX.set(x);
+    pointerY.set(y);
+  };
+
+  const heroTransition = useMemo(
+    () => ({ duration: shouldReduceMotion ? 0 : 0.8, ease: [0.25, 0.1, 0.25, 1] }),
+    [shouldReduceMotion],
+  );
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-background to-[#f2efe8] pb-[72px] pt-[72px] md:pt-[88px]">
-      <div className="container-regular relative z-10">
-        <div className="grid gap-8 md:gap-10 lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-7 max-w-2xl">
-            <div className="mb-5 inline-flex items-center gap-2">
-              <CasmMark className="h-[16px] w-[16px] text-foreground/80" />
-              <span className="font-mono text-[11px] tracking-[0.2em] text-muted-foreground">
-                THE STANDARD BODY
-              </span>
-            </div>
+    <section
+      ref={heroRef}
+      className="hero-scientific relative isolate overflow-hidden bg-[#f2f0eb] pb-20 pt-20 md:pb-24 md:pt-24"
+    >
+      <div aria-hidden className="hero-grain pointer-events-none absolute inset-0" />
 
-            <h1 className="max-w-[12ch] text-[clamp(2.75rem,5.8vw,4.5rem)] leading-[0.98] tracking-[-0.02em]">
-              A public competence standard.
-            </h1>
-
-            <p className="mt-5 max-w-[46ch] text-[1.16rem] leading-[1.55] text-muted-foreground">
-              An examination-governed credential. Built on published standards,
-              enforceable ethics, and public registry status.
+      <div className="container-wide relative z-10">
+        <div className="relative grid gap-10 lg:grid-cols-12 lg:gap-14">
+          <motion.div
+            initial={fadeUp.initial}
+            animate={fadeUp.animate}
+            transition={heroTransition}
+            className="lg:col-span-5"
+          >
+            <p className="mb-8 border-b border-black/20 pb-5 text-[0.7rem] uppercase tracking-[0.22em] text-[#44423d]">
+              The governing body for advanced clinical competence.
             </p>
 
-            <p className="mt-3 text-[0.93rem] text-foreground/75">Verifiable by design.</p>
+            <h1 className="max-w-[11ch] font-serif text-[clamp(3rem,7vw,6.3rem)] leading-[0.92] tracking-[-0.03em] text-[#1a1a1a]">
+              THE SYSTEMIC STANDARD.
+            </h1>
 
-            <div className="mt-9 flex flex-wrap items-center gap-3 md:gap-4">
-              <Button asChild size="lg" className="h-11 rounded-sm px-5">
-                <Link to="/credential" className="no-underline">
-                  Explore the credential
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="h-11 rounded-sm px-5">
-                <Link to="/documents" className="no-underline">
-                  View exam blueprints
-                </Link>
-              </Button>
+            <p className="mt-8 max-w-[44ch] text-[1.08rem] leading-[1.7] text-[#34332f]">
+              A sovereign framework for advanced clinical practice—written, examined, and governed
+              with institutional precision.
+            </p>
+
+            <div className="mt-12 flex flex-wrap items-center gap-5 border-t border-black/20 pt-6">
+              <Link
+                to="/credential"
+                className="group inline-flex items-center gap-3 border border-black/35 px-5 py-2.5 text-[0.86rem] uppercase tracking-[0.16em] text-[#1f1f1d] no-underline transition-colors hover:border-black/70"
+              >
+                Enter the standard
+                <ArrowRightLongIcon className="h-3.5 w-[1.6rem] transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+
               <Link
                 to="/documents"
-                className="ml-1 no-underline text-sm text-muted-foreground transition-colors hover:text-foreground hover:underline hover:underline-offset-4"
+                className="inline-flex items-center text-[0.83rem] uppercase tracking-[0.18em] text-[#5a5752] no-underline transition-colors hover:text-[#1f1f1d]"
               >
-                Read governance structure
+                Examine the blueprint →
               </Link>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="relative pt-2 lg:col-span-5 lg:pt-14">
-            <motion.aside
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.4, ease: "easeOut", delay: 0.08 }}
-              className="relative w-full max-w-[500px] border border-black/15 bg-[#fbfaf8] px-7 py-7 md:px-8 md:py-8"
+          <div className="relative lg:col-span-7 lg:min-h-[73svh]">
+            <div className="hero-divider hidden lg:block" aria-hidden />
+
+            <motion.div
+              style={{ opacity: fadeProgress, filter: useMotionTemplate`blur(${blurProgress}px)` }}
+              className="hero-sticky-stage"
             >
-              <div className="absolute right-7 top-7 opacity-70">
-                <CasmMark className="h-[14px] w-[14px] text-foreground/75" />
-              </div>
-
-              <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-                Public Registry Excerpt
-              </p>
-              <p className="mt-1 font-mono text-[11px] tracking-[0.12em] text-muted-foreground">
-                CASM Standard v1.0
-              </p>
-
               <motion.div
-                initial={shouldReduceMotion ? false : { scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: "easeOut", delay: 0.12 }}
-                className="my-4 h-px origin-left bg-black/15"
-              />
+                initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 1.1, ease: "easeOut", delay: 0.2 }}
+                onMouseMove={handleMouseMove}
+                className="hero-object-wrap"
+              >
+                <svg className="pointer-events-none absolute h-0 w-0" aria-hidden>
+                  <filter id="morphogenetic-distortion">
+                    <feTurbulence
+                      type="fractalNoise"
+                      baseFrequency="0.006 0.025"
+                      numOctaves="2"
+                      seed="4"
+                      result="noise"
+                    >
+                      <animate
+                        attributeName="baseFrequency"
+                        dur="26s"
+                        repeatCount="indefinite"
+                        values="0.006 0.025;0.009 0.03;0.006 0.025"
+                      />
+                    </feTurbulence>
+                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="28" />
+                  </filter>
+                </svg>
 
-              <h2 className="mb-4 text-[1.125rem] font-medium leading-tight">Institutional controls</h2>
-
-              <p className="mb-5 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground">
-                Status: <span className="text-foreground">Not yet issued</span>
-              </p>
-
-              <div className="divide-y divide-black/10 border-y border-black/10">
-                {registryRows.map((item) => (
-                  <Link
-                    key={item.label}
-                    to={item.href}
-                    className="group grid grid-cols-[92px_1fr] gap-4 py-3 no-underline"
-                  >
-                    <span className="text-sm text-foreground/78 transition-colors group-hover:text-foreground">
-                      {item.label}
-                    </span>
-                    <span className="text-sm leading-relaxed text-muted-foreground">
-                      {item.description}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-
-              <div className="mt-5 space-y-1 font-mono text-[11px] tracking-[0.12em] text-muted-foreground">
-                <p>DOC ID: CASM-STD-v1.0</p>
-                <p>Issued by: The CASM Institute</p>
-              </div>
-            </motion.aside>
+                <motion.div
+                  style={{ background: lighting }}
+                  className="hero-sculpture"
+                  animate={
+                    shouldReduceMotion
+                      ? undefined
+                      : {
+                          rotateZ: [0, 1.3, -0.8, 0],
+                          rotateY: [0, 1.4, -1.2, 0],
+                        }
+                  }
+                  transition={{ duration: 44, ease: "linear", repeat: Infinity }}
+                >
+                  <div className="hero-sculpture-blur" />
+                </motion.div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </div>

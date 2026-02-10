@@ -1,14 +1,8 @@
 import { Link } from "react-router-dom";
-import {
-  motion,
-  useMotionTemplate,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion";
-import { MouseEvent, useMemo, useRef } from "react";
+import { motion, useMotionTemplate, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { MouseEvent, useMemo, useRef, useState } from "react";
 import { ArrowRightLongIcon } from "@/components/ui/icons/ArrowRightLongIcon";
+import { HeroSculptureCanvas } from "@/components/home/HeroSculptureCanvas";
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
@@ -18,6 +12,7 @@ const fadeUp = {
 export function HeroSection() {
   const shouldReduceMotion = useReducedMotion();
   const heroRef = useRef<HTMLElement | null>(null);
+  const [pointer, setPointer] = useState({ x: 0, y: 0 });
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -27,15 +22,6 @@ export function HeroSection() {
   const blurProgress = useTransform(scrollYProgress, [0.25, 0.92], [0, 18]);
   const fadeProgress = useTransform(scrollYProgress, [0.5, 0.95], [1, 0.15]);
 
-  const pointerX = useSpring(0, { stiffness: 40, damping: 22, mass: 0.6 });
-  const pointerY = useSpring(0, { stiffness: 40, damping: 22, mass: 0.6 });
-
-  const lighting = useMotionTemplate`
-    radial-gradient(130% 100% at ${useTransform(pointerX, [-1, 1], [56, 44])}% ${useTransform(pointerY, [-1, 1], [38, 62])}%,
-      rgba(255, 255, 255, 0.95) 0%,
-      rgba(244, 241, 235, 0.92) 42%,
-      rgba(226, 222, 214, 0.85) 100%)`;
-
   const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
     if (shouldReduceMotion) return;
     const { currentTarget, clientX, clientY } = event;
@@ -43,8 +29,7 @@ export function HeroSection() {
     const x = ((clientX - rect.left) / rect.width) * 2 - 1;
     const y = ((clientY - rect.top) / rect.height) * 2 - 1;
 
-    pointerX.set(x);
-    pointerY.set(y);
+    setPointer({ x, y });
   };
 
   const heroTransition = useMemo(
@@ -112,41 +97,12 @@ export function HeroSection() {
                 onMouseMove={handleMouseMove}
                 className="hero-object-wrap"
               >
-                <svg className="pointer-events-none absolute h-0 w-0" aria-hidden>
-                  <filter id="morphogenetic-distortion">
-                    <feTurbulence
-                      type="fractalNoise"
-                      baseFrequency="0.006 0.025"
-                      numOctaves="2"
-                      seed="4"
-                      result="noise"
-                    >
-                      <animate
-                        attributeName="baseFrequency"
-                        dur="26s"
-                        repeatCount="indefinite"
-                        values="0.006 0.025;0.009 0.03;0.006 0.025"
-                      />
-                    </feTurbulence>
-                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="28" />
-                  </filter>
-                </svg>
-
-                <motion.div
-                  style={{ background: lighting }}
-                  className="hero-sculpture"
-                  animate={
-                    shouldReduceMotion
-                      ? undefined
-                      : {
-                          rotateZ: [0, 1.3, -0.8, 0],
-                          rotateY: [0, 1.4, -1.2, 0],
-                        }
-                  }
-                  transition={{ duration: 44, ease: "linear", repeat: Infinity }}
-                >
-                  <div className="hero-sculpture-blur" />
-                </motion.div>
+                <div className="hero-sculpture-canvas" role="presentation" aria-hidden>
+                  <HeroSculptureCanvas
+                    pointer={pointer}
+                    reduceMotion={Boolean(shouldReduceMotion)}
+                  />
+                </div>
               </motion.div>
             </motion.div>
           </div>

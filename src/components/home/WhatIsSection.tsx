@@ -26,7 +26,6 @@ export function WhatIsSection() {
           transition={motionMed}
           className="mb-12"
         >
-          <p className="eyebrow mb-5">SCOPE</p>
           <h2>What CASM is. What it is not.</h2>
         </motion.div>
 

@@ -23,7 +23,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...motionSlow, delay: 0.08 }}
-            className="text-lg text-muted-foreground leading-relaxed max-w-xl mb-8"
+            className="text-lg text-muted-foreground leading-relaxed max-w-xl mb-6"
             style={{ maxWidth: "42ch" }}
           >
             Credentialed through proctored examinations. Governed by published standards, enforceable ethics, and public registry status.
@@ -34,7 +34,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...motionSlow, delay: 0.16 }}
           >
-            <WaitlistSignup source="hero_waitlist" buttonStyle="outline" />
+            <WaitlistSignup source="hero_waitlist" />
           </motion.div>
         </div>
       </div>

@@ -1,11 +1,9 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 type WaitlistSignupProps = {
   source?: string;
   compact?: boolean;
-  buttonStyle?: "outline" | "solid";
 };
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
@@ -28,7 +26,6 @@ function trackEvent(eventName: string, data?: Record<string, unknown>) {
 export function WaitlistSignup({
   source = "hero_waitlist",
   compact = false,
-  buttonStyle = "outline",
 }: WaitlistSignupProps) {
   const [email, setEmail] = useState("");
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
@@ -40,10 +37,7 @@ export function WaitlistSignup({
 
   const isValidEmail = useMemo(() => EMAIL_REGEX.test(email.trim()), [email]);
 
-  const submitLabel =
-    submitState === "submitting"
-      ? "Submitting..."
-      : "Be notified when candidate registration opens.";
+  const submitLabel = "Be notified when candidate registration opens.";
 
   const submitWaitlist = async (candidateEmail: string) => {
     const normalizedEmail = candidateEmail.trim().toLowerCase();
@@ -90,7 +84,7 @@ export function WaitlistSignup({
     try {
       await submitWaitlist(email);
       setSubmitState("success");
-      setMessage("You’re on the list. We’ll notify you when registration opens.");
+      setMessage("You’re on the notification list.");
       trackEvent("waitlist_success", { source, page: window.location.pathname });
     } catch {
       setSubmitState("error");
@@ -103,26 +97,14 @@ export function WaitlistSignup({
     return (
       <div className="max-w-[600px]">
         <p className="text-sm text-foreground">{message}</p>
-        <button
-          type="button"
-          onClick={() => {
-            setSubmitState("idle");
-            setMessage(null);
-          }}
-          className="mt-3 text-xs text-muted-foreground hover:text-foreground transition-colors duration-[180ms]"
-        >
-          Change email
-        </button>
       </div>
     );
   }
 
   return (
     <div className={cn("w-full max-w-[600px]", compact && "max-w-[520px]")}>
-      <p className="text-sm text-muted-foreground mb-4">Candidate registration is not yet open.</p>
-
       <form onSubmit={onSubmit} className="space-y-3" noValidate>
-        <div className="flex flex-col lg:flex-row gap-3 items-stretch">
+        <div className="flex flex-col gap-[14px] sm:flex-row sm:items-baseline sm:gap-6 lg:gap-7">
           <input
             type="email"
             value={email}
@@ -133,20 +115,30 @@ export function WaitlistSignup({
             placeholder="Email address"
             autoComplete="email"
             aria-label="Email address"
-            className="h-11 w-full lg:w-[260px] border border-foreground/20 bg-transparent px-4 text-[15px] text-foreground placeholder:text-muted-foreground/80 transition-colors duration-[180ms] outline-none focus:border-foreground/40"
+            className="w-full border-0 border-b border-foreground/20 bg-transparent px-0 py-[11px] text-[15px] leading-6 text-foreground placeholder:text-muted-foreground/55 transition-colors duration-[180ms] outline-none focus:border-foreground/50 sm:w-[clamp(280px,30vw,320px)]"
           />
 
           <button
             type="submit"
             disabled={submitState === "submitting"}
-            className={cn(
-              "h-11 px-6 text-sm transition-all duration-[180ms] active:translate-y-px border",
-              buttonStyle === "outline"
-                ? "border-foreground text-foreground hover:bg-foreground hover:text-background"
-                : "border-[#111] bg-[#111] text-white hover:bg-black",
-            )}
+            className="group inline-flex w-fit items-baseline gap-1 bg-transparent px-0 py-[11px] text-sm text-foreground underline decoration-2 underline-offset-[6px] transition-all duration-[180ms] ease-out hover:opacity-90 focus-visible:outline focus-visible:outline-1 focus-visible:outline-foreground/50 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {submitLabel}
+            <span>{submitLabel}</span>
+            <span
+              aria-hidden="true"
+              className={cn(
+                "text-[10px] leading-none transition-opacity duration-[180ms]",
+                submitState === "submitting" ? "animate-pulse opacity-80" : "opacity-0",
+              )}
+            >
+              •
+            </span>
+            <span
+              aria-hidden="true"
+              className="opacity-0 -translate-x-0.5 transition-all duration-[180ms] group-hover:translate-x-1 group-hover:opacity-100"
+            >
+              →
+            </span>
           </button>
         </div>
 
@@ -161,9 +153,6 @@ export function WaitlistSignup({
           </p>
         )}
 
-        <p className="text-xs text-muted-foreground">
-          No spam. Privacy-first. <Link to="/privacy" className="underline underline-offset-4">Privacy</Link>
-        </p>
       </form>
     </div>
   );

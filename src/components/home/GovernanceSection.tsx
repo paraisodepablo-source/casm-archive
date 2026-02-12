@@ -15,7 +15,6 @@ export function GovernanceSection() {
           transition={motionMed}
           className="text-center mb-8"
         >
-          <p className="eyebrow mb-5">GOVERNANCE STRUCTURE · v1.0</p>
           <h2>Governance at a glance</h2>
         </motion.div>
 

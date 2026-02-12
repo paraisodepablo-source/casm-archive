@@ -23,7 +23,6 @@ export function DocumentsSection() {
           transition={motionMed}
           className="mb-8"
         >
-          <p className="eyebrow mb-5">DOCUMENT INDEX · CASM-DOC-INDEX · v1.0</p>
           <h2 className="mb-5">Official documents</h2>
           <p className="text-muted-foreground max-w-xl">
             Versioned policies, blueprints, and governance documents. Publicly referenced and change-controlled.

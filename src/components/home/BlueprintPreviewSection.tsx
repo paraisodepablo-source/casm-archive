@@ -88,7 +88,6 @@ export function BlueprintPreviewSection() {
           transition={motionMed}
           className="mb-8"
         >
-          <p className="eyebrow mb-5">SECTION-03 · BLUEPRINTS · v1.0</p>
           <h2 className="mb-5">Blueprint Preview</h2>
           <p className="text-muted-foreground max-w-xl">
             Indicative weighting by domain. Percent ranges represent blueprint allocation.

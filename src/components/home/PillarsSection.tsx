@@ -31,7 +31,6 @@ export function PillarsSection() {
           transition={motionMed}
           className="mb-12"
         >
-          <p className="eyebrow mb-5">THE STANDARD</p>
           <h2>Three pillars of an enforceable credential.</h2>
         </motion.div>
 

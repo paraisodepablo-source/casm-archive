@@ -41,7 +41,6 @@ export function PathwaySection() {
           transition={motionMed}
           className="max-w-xl mb-8"
         >
-          <p className="eyebrow mb-5">SECTION-02 · PATHWAY · v1.0</p>
           <h2 className="mb-5">The Pathway</h2>
           <p className="text-muted-foreground">
             Three levels. A deliberately demanding progression.

@@ -1,4 +1,6 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
 type WaitlistSignupProps = {
@@ -27,6 +29,7 @@ export function WaitlistSignup({
   source = "hero_waitlist",
   compact = false,
 }: WaitlistSignupProps) {
+  const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [message, setMessage] = useState<string | null>(null);
@@ -37,7 +40,7 @@ export function WaitlistSignup({
 
   const isValidEmail = useMemo(() => EMAIL_REGEX.test(email.trim()), [email]);
 
-  const submitLabel = "Be notified when candidate registration opens.";
+  const heroCtaLabel = "Be notified when candidate registration opens.";
 
   const submitWaitlist = async (candidateEmail: string) => {
     const normalizedEmail = candidateEmail.trim().toLowerCase();
@@ -84,7 +87,7 @@ export function WaitlistSignup({
     try {
       await submitWaitlist(email);
       setSubmitState("success");
-      setMessage("You’re on the notification list.");
+      setMessage("You’re on the list.");
       trackEvent("waitlist_success", { source, page: window.location.pathname });
     } catch {
       setSubmitState("error");
@@ -93,67 +96,85 @@ export function WaitlistSignup({
     }
   };
 
-  if (submitState === "success") {
-    return (
-      <div className="max-w-[600px]">
-        <p className="text-sm text-foreground">{message}</p>
-      </div>
-    );
-  }
-
   return (
     <div className={cn("w-full max-w-[600px]", compact && "max-w-[520px]")}>
-      <form onSubmit={onSubmit} className="space-y-3" noValidate>
-        <div className="flex flex-col gap-[14px] sm:flex-row sm:items-baseline sm:gap-6 lg:gap-7">
-          <input
-            type="email"
-            value={email}
-            onChange={(event) => {
-              setEmail(event.target.value);
-              if (message) setMessage(null);
-            }}
-            placeholder="Email address"
-            autoComplete="email"
-            aria-label="Email address"
-            className="w-full border-0 border-b border-foreground/20 bg-transparent px-0 py-[11px] text-[15px] leading-6 text-foreground placeholder:text-muted-foreground/55 transition-colors duration-[180ms] outline-none focus:border-foreground/50 sm:w-[clamp(280px,30vw,320px)]"
-          />
+      <Dialog
+        open={open}
+        onOpenChange={(nextOpen) => {
+          setOpen(nextOpen);
+          if (!nextOpen) {
+            setEmail("");
+            setMessage(null);
+            setSubmitState("idle");
+          }
+        }}
+      >
+        <DialogTrigger asChild>
+          <Button variant="outline" className="h-11 px-5 hover:bg-foreground/[0.03] hover:border-foreground/50">
+            {heroCtaLabel}
+          </Button>
+        </DialogTrigger>
 
-          <button
-            type="submit"
-            disabled={submitState === "submitting"}
-            className="group inline-flex w-fit items-baseline gap-1 bg-transparent px-0 py-[11px] text-sm text-foreground underline decoration-2 underline-offset-[6px] transition-all duration-[180ms] ease-out hover:opacity-90 focus-visible:outline focus-visible:outline-1 focus-visible:outline-foreground/50 disabled:cursor-not-allowed disabled:opacity-60"
-          >
-            <span>{submitLabel}</span>
-            <span
-              aria-hidden="true"
-              className={cn(
-                "text-[10px] leading-none transition-opacity duration-[180ms]",
-                submitState === "submitting" ? "animate-pulse opacity-80" : "opacity-0",
+        <DialogContent
+          className="w-[92vw] max-w-[640px] border border-border bg-background p-7 shadow-none sm:p-9"
+          overlayClassName="bg-black/15"
+          showClose={false}
+        >
+          <DialogHeader className="space-y-3 text-left">
+            <DialogTitle className="font-serif text-[2rem] leading-tight">Notification list</DialogTitle>
+            <DialogDescription className="max-w-[46ch] text-base leading-relaxed text-muted-foreground">
+              Receive a single email when candidate registration opens.
+            </DialogDescription>
+          </DialogHeader>
+
+          {submitState === "success" ? (
+            <div className="mt-6 space-y-5">
+              <p className="text-base text-foreground">{message}</p>
+              <Button variant="outline" size="sm" onClick={() => setOpen(false)}>
+                Close
+              </Button>
+            </div>
+          ) : (
+            <form onSubmit={onSubmit} className="mt-6 space-y-3" noValidate>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(event) => {
+                    setEmail(event.target.value);
+                    if (message) setMessage(null);
+                  }}
+                  placeholder="Email address"
+                  autoComplete="email"
+                  aria-label="Email address"
+                  autoFocus
+                  className="h-11 w-full border border-border bg-transparent px-4 text-[15px] leading-6 text-foreground placeholder:text-muted-foreground/60 outline-none transition-colors duration-[180ms] focus:border-foreground/35"
+                />
+
+                <Button
+                  type="submit"
+                  variant="outline"
+                  disabled={submitState === "submitting"}
+                  className="h-11 shrink-0 px-5"
+                >
+                  Notify me
+                </Button>
+              </div>
+
+              {message && (
+                <p
+                  className={cn(
+                    "text-xs",
+                    submitState === "error" ? "text-foreground/80" : "text-muted-foreground",
+                  )}
+                >
+                  {message}
+                </p>
               )}
-            >
-              •
-            </span>
-            <span
-              aria-hidden="true"
-              className="opacity-0 -translate-x-0.5 transition-all duration-[180ms] group-hover:translate-x-1 group-hover:opacity-100"
-            >
-              →
-            </span>
-          </button>
-        </div>
-
-        {message && submitState !== "success" && (
-          <p
-            className={cn(
-              "text-xs",
-              submitState === "error" ? "text-foreground/80" : "text-muted-foreground",
-            )}
-          >
-            {message}
-          </p>
-        )}
-
-      </form>
+            </form>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

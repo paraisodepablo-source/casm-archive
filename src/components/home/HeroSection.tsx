@@ -33,6 +33,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...motionSlow, delay: 0.16 }}
+            className="mt-6"
           >
             <WaitlistSignup source="hero_waitlist" />
           </motion.div>

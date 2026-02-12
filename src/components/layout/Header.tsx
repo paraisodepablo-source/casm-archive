@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { motionFast } from "@/lib/motion";
-import { CasmMark } from "@/components/institutional/CasmMark";
 
 const navItems = [
   { number: "01", label: "The Credential", href: "/credential" },
@@ -29,10 +28,9 @@ export function Header() {
           {/* Logo */}
           <Link
             to="/"
-            className="inline-flex items-center gap-2 font-serif text-[15px] font-medium no-underline hover:opacity-70 transition-opacity duration-[160ms]"
+            className="font-serif text-[15px] font-medium no-underline hover:opacity-70 transition-opacity duration-[160ms]"
           >
-            <CasmMark className="h-[15px] w-[15px] text-foreground/80" />
-            <span>The CASM Institute</span>
+            The CASM Institute
           </Link>
           
           {/* Right nav */}

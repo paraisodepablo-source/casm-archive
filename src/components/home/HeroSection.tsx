@@ -21,7 +21,7 @@ export function HeroSection() {
             className="mb-6"
           >
             {isNewHeroVersion
-              ? "The competence standard for systems medicine."
+              ? "CASM: The competence standard for systems medicine."
               : "A public, examination-based standard for advanced systems medicine."}
           </motion.h1>
 

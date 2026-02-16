@@ -5,18 +5,18 @@ import { motionMed, staggerDelay } from "@/lib/motion";
 const pillars = [
   {
     number: 1,
-    title: "Examination-based",
-    description: "Published blueprints. Proctored examinations. Psychometrically designed item banks. A formal competence standard.",
+    title: "A living standard.",
+    description: "Twelve clinical domains maintained by active practitioners and researchers. Revised as evidence evolves.",
   },
   {
     number: 2,
-    title: "Institutional standards",
-    description: "Governance, conflict-of-interest controls, and enforceable ethics. Disciplinary process with public policies.",
+    title: "Built for a shortage that already exists.",
+    description: "Demand is rising. Clinical capacity is not. CASM closes that gap at scale without lowering standards.",
   },
   {
     number: 3,
-    title: "Verifiable signal",
-    description: "A public registry with active, lapsed, and revoked status. Verifiable record. No ambiguity.",
+    title: "Enforceable by design.",
+    description: "Proctored examinations. Published blueprints. A public registry. Governance with disciplinary authority. Not a certificate. A credential that can be revoked.",
   },
 ];
 

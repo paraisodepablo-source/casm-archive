@@ -84,6 +84,13 @@ export function Header() {
                 <span className="absolute bottom-[-2px] left-3 right-3 h-[2px] bg-foreground" />
               )}
             </Link>
+
+            <Link
+              to="/?hero=v2"
+              className="no-underline px-3 py-1 text-muted-foreground hover:text-foreground transition-colors duration-[160ms]"
+            >
+              click here to see the new hero version
+            </Link>
             
             <span className="text-foreground/12 mx-3 select-none">|</span>
             

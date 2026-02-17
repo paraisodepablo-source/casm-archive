@@ -20,9 +20,15 @@ export function HeroSection() {
             transition={motionSlow}
             className="mb-6"
           >
-            {isNewHeroVersion
-              ? "CASM: The competence standard for systems medicine."
-              : "A public, examination-based standard for advanced systems medicine."}
+            {isNewHeroVersion ? (
+              <>
+                CASM:
+                <br />
+                The competence standard for systems medicine.
+              </>
+            ) : (
+              "A public, examination-based standard for advanced systems medicine."
+            )}
           </motion.h1>
 
           <motion.p

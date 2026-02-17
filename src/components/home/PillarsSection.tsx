@@ -10,7 +10,7 @@ const pillars = [
   },
   {
     number: 2,
-    title: "Built for a shortage that already exists.",
+    title: "Built for an existing shortage.",
     description: "Demand is rising. Clinical capacity is not. CASM closes that gap at scale without lowering standards.",
   },
   {

@@ -22,9 +22,9 @@ export function HeroSection() {
           >
             {isNewHeroVersion ? (
               <>
-                CASM:
-                <br />
-                The competence standard for systems medicine.
+                <span className="block whitespace-nowrap">CASM:</span>
+                <span className="block whitespace-nowrap">The competence standard</span>
+                <span className="block whitespace-nowrap">for systems medicine.</span>
               </>
             ) : (
               "A public, examination-based standard for advanced systems medicine."

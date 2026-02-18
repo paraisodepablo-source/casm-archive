@@ -24,7 +24,9 @@ export function HeroSection() {
               <>
                 CASM:
                 <br />
-                The competence standard for systems medicine.
+                The&nbsp;competence&nbsp;standard
+                <br />
+                for&nbsp;systems&nbsp;medicine.
               </>
             ) : (
               "A public, examination-based standard for advanced systems medicine."

@@ -25,49 +25,33 @@ export function HeroSection() {
   const isNewHeroVersion = searchParams.get("hero") === "v2";
 
   return (
-    <section key={location.key} className="relative overflow-hidden pt-24 md:pt-28 pb-20 md:pb-24 min-h-[calc(100vh-4rem)]">
+    <section
+      className="relative overflow-hidden"
+      style={isNewHeroVersion
+        ? { height: "calc(100vh - 73px)", display: "grid", placeItems: "center" }
+        : { paddingTop: "3rem", paddingBottom: "6rem" }}
+    >
       <InstitutionalSeal position="right" className="top-0" />
 
-      <div className="container-regular relative z-10">
-        <div className="max-w-3xl">
-
-          {isNewHeroVersion ? (
-            <div role="heading" aria-level={1} className="mb-6">
-              <motion.p
-                style={h1Style}
-                initial={{ opacity: 0, y: 60 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1.4, ease: easeTitle, delay: 0.1 }}
-              >
-                CASM:
-              </motion.p>
-              <motion.p
-                style={h1Style}
-                initial={{ opacity: 0, y: 60 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1.4, ease: easeTitle, delay: 0.9 }}
-              >
-                The competence standard
-              </motion.p>
-              <motion.p
-                style={h1Style}
-                initial={{ opacity: 0, y: 60 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1.4, ease: easeTitle, delay: 1.7 }}
-              >
-                for systems medicine.
-              </motion.p>
-            </div>
-          ) : (
-            <motion.h1
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={motionSlow}
-              className="mb-6"
-            >
-              A public, examination-based standard for advanced systems medicine.
-            </motion.h1>
-          )}
+      <div className="container-regular relative z-10" style={isNewHeroVersion ? { marginTop: "-20px" } : undefined}>
+        <div className={isNewHeroVersion ? "max-w-5xl" : "max-w-3xl"}>
+          <motion.h1
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={motionSlow}
+            className="mb-12"
+            style={isNewHeroVersion ? { fontSize: "clamp(2.5rem, 6.5vw, 5.5rem)", lineHeight: 1.0 } : undefined}
+          >
+            {isNewHeroVersion ? (
+              <>
+                <span className="block">CASM:</span>
+                <span className="block">The competence standard</span>
+                <span className="block">for systems medicine.</span>
+              </>
+            ) : (
+              "A public, examination-based standard for advanced systems medicine."
+            )}
+          </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 60 }}

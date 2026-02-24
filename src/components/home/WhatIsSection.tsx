@@ -17,8 +17,8 @@ const whatIsNot = [
 
 export function WhatIsSection() {
   return (
-    <section className="section border-t border-foreground/8">
-      <div className="container-regular">
+    <section className="border-t border-b border-foreground/8" style={{ minHeight: 'calc(100vh - 73px)', display: 'flex', alignItems: 'center' }}>
+      <div className="container-regular w-full">
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
